@@ -1,0 +1,10 @@
+{
+  "name": "eggcllnt-boilerplate-client",
+  "version": "1.0.0",
+  "description": "React boilerplate. Crated to make life easier",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Serhii Yaitskii",
+  "license": "WTFPL"
+}
