@@ -1,20 +1,13 @@
-# Eggcllnt boilerplate
-Crated to make life easier
 
-### Intro
-I created this boilerplate for my team to start our projects quick and not painful.
-This Boilerplate includes technologies like:
+![Clockbeats](https://clockbeats.com/static/img/cb_logo.png)
 
-* ECMAScript 2016 - 2017
-* React
-* Redux
-* Thunk/Saga
-* Jest
-* Enzyme
-* Webpack + HMR + Tree shaking
-* Sass + Postcss
+[Clockbeats](https://clockbeats.com) is a portal of digital interaction, exchange and growth of ideas between
+people who live, breath and create music.
 
-And more.
+### The home of artists.
+Have you ever imagined a place where you can share your feelings, your talent, your ideas,
+showing your competence and finding contacts for the finalization of your projects?
+Clockbeats is the result of a wide dream: building a home with no walls, no barriers, no prejudices.
 
 ### Quick start
 Runs [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) on [http://127.0.0.1:3000](http://127.0.0.1:3000)  
@@ -39,4 +32,5 @@ To check tests coverage go to `coverage/lcov-report` folder and open `index.html
 ### Project structure
 
 ```
+// TODO: Create tree of the project structure
 ```
