@@ -42,6 +42,16 @@ video {
 	vertical-align: middle;
 }
 
+a {
+	&,
+	&:active,
+	&:hover,
+	&:focus,
+	&:visited {
+		text-decoration: none;
+	}
+}
+
 fieldset {
 	border: 0;
 	margin: 0;
@@ -70,4 +80,29 @@ textarea {
 #root,
 [data-reactroot] {
 	height: inherit;
+}
+
+[data-reactroot] {
+	padding-top: 63px;
+
+	&.with-background {
+		background: url('/assets/images/cb_login.jpg') no-repeat center;
+		background-size: cover;
+	}
+}
+
+main {
+	height: calc(100vh - 81px);
+
+
+}
+
+.sign-container {
+	padding-top: 60px;
+}
+
+.sign-form {
+	border: 1px solid #eee;
+	padding: 110px 30px;
+	background-color: rgba(255, 255, 255, 0.9);
 }

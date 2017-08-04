@@ -82,7 +82,7 @@ const rules = {
 const config = {};
 
 config.entry = {
-	polyfills: './src/application/polyfills.js',
+	polyfills: ['babel-polyfill', './src/application/polyfills.js'],
 	main: ['./src/application/index.js'],
 };
 

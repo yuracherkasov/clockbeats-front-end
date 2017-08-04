@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
-import BoilerplateHeading from './components/Boilerplate';
+import React from 'react';
+import {Provider, connect} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
 
-export default class BootstrapContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
+import createStore from './store';
 
-	render() {
-		return (
-			<div>
-				<BoilerplateHeading />
-			</div>
-		);
-	}
+import Root from './routes/Root';
+
+export default function BootstrapContainer({}) {
+	const store = createStore({});
+
+	return (
+		<Provider store={store}>
+			<BrowserRouter>
+				<Root />
+			</BrowserRouter>
+		</Provider>
+	);
 }

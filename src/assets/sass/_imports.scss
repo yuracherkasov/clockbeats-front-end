@@ -1,10 +1,19 @@
 @import "variables";
 
+// Third party libs
 @import "~bootstrap/scss/bootstrap-grid";
 @import "~bootstrap/scss/bootstrap-reboot";
 @import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/input-group";
 
+// Mixins
 @import "includes/mixins/font-face";
 
+// Common
 @import "includes/fonts";
-@import "includes/biolerplate-header";
+@import "includes/buttons";
+
+// Components
+@import "includes/header";
+@import "includes/main-content";
