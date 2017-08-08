@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {NavLink, withRouter} from 'react-router-dom';
+
+import {LargeMacroProfile} from '../../Macro-profiles';
 
 class DrawerContainer extends Component {
 	constructor(props) {
@@ -7,10 +10,12 @@ class DrawerContainer extends Component {
 	}
 
 	render() {
+		const {online} = this.props;
 
 		return (
 			<aside className="drawer panel">
 				<div className="drawer-wrapper">
+					<LargeMacroProfile online={online} />
 					<nav>
 						<ul>
 							<li>
@@ -75,4 +80,6 @@ class DrawerContainer extends Component {
 	}
 }
 
-export default DrawerContainer;
+export default withRouter(connect(
+	state => ({online: state.socket.online}),
+)(DrawerContainer));

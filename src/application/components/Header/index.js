@@ -7,7 +7,7 @@ import {
 	withRouter
 } from 'react-router-dom';
 
-function links(user, online, signOut) {
+function links(user, signOut) {
 	if (!user.username) {
 		return [
 			<Link key={1} to="/sign-in" className="btn btn-secondary mr-3">Sign In</Link>,
@@ -18,7 +18,6 @@ function links(user, online, signOut) {
 	return (
 		<div>
 			<Link to="/you/profile">Hello, {user.username}</Link>
-			<small className="ml-3 text-muted">{online ? 'online' : 'offline'}</small>
 			<div className="btn btn-primary ml-3" onClick={() => signOut()}>Sign Out</div>
 		</div>
 	);
@@ -46,7 +45,7 @@ function Header({user, online, signOut}) {
 							</div>
 							<div className="col-md-4 d-flex align-items-center justify-content-end">
 								<div className="mr-5">
-									{links(user, online, signOut)}
+									{links(user, signOut)}
 								</div>
 							</div>
 					</div>
