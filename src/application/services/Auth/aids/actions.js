@@ -10,6 +10,10 @@ export const AUTH = {
 	VERIFY_TOKEN_REQUESTED: 'VERIFY_TOKEN_REQUESTED',
 	VERIFY_TOKEN_SUCCEEDED: 'VERIFY_TOKEN_SUCCEEDED',
 	VERIFY_TOKEN_FAILED: 'VERIFY_TOKEN_FAILED',
+
+	SIGN_OUT_REQUESTED: 'SIGN_OUT_REQUESTED',
+	SIGN_OUT_SUCCEEDED: 'SIGN_OUT_SUCCEEDED',
+	SIGN_OUT_FAILED: 'SIGN_OUT_FAILED',
 };
 
 export function signInRequestAction({email, password}) {
@@ -34,6 +38,18 @@ export function signUpSuccessAction(user) {
 
 export function signUpFailedAction(error) {
 	return {type: AUTH.SIGN_UP_FAILED, payload: {error}};
+}
+
+export function signOutRequestAction() {
+	return {type: AUTH.SIGN_OUT_REQUESTED};
+}
+
+export function signOutSuccessAction() {
+	return {type: AUTH.SIGN_OUT_SUCCEEDED};
+}
+
+export function signOutFailedAction(error) {
+	return {type: AUTH.SIGN_OUT_FAILED, payload: {error}};
 }
 
 export function verifyTokenRequestAction(token) {

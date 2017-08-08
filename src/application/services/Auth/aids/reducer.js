@@ -11,6 +11,8 @@ export default (state = initialState, {type, payload}) => {
 			return {...payload.user};
 		}
 
+		case AUTH.SIGN_OUT_SUCCEEDED:
+		case AUTH.SIGN_OUT_FAILED:
 		case AUTH.SIGN_IN_FAILED:
 		case AUTH.SIGN_UP_FAILED: {
 			return initialState;

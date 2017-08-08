@@ -7,7 +7,7 @@ import {
 	withRouter
 } from 'react-router-dom';
 
-function links(user) {
+function links(user, online, signOut) {
 	if (!user.username) {
 		return [
 			<Link key={1} to="/sign-in" className="btn btn-secondary mr-3">Sign In</Link>,
@@ -15,10 +15,16 @@ function links(user) {
 		];
 	}
 
-	return <div><Link to="/you/profile">Hello, {user.username}</Link></div>;
+	return (
+		<div>
+			<Link to="/you/profile">Hello, {user.username}</Link>
+			<small className="ml-3 text-muted">{online ? 'online' : 'offline'}</small>
+			<div className="btn btn-primary ml-3" onClick={() => signOut()}>Sign Out</div>
+		</div>
+	);
 }
 
-function Header({user}) {
+function Header({user, online, signOut}) {
 	return (
 		<header className="page-header">
 			<nav className="navigation navigation-head">
@@ -36,7 +42,7 @@ function Header({user}) {
 							</div>
 							<div className="col-md-4 d-flex align-items-center justify-content-end">
 								<div className="mr-5">
-									{links(user)}
+									{links(user, online, signOut)}
 								</div>
 							</div>
 					</div>
@@ -48,9 +54,10 @@ function Header({user}) {
 
 Header.propTypes = {
 	user: PropTypes.object.isRequired,
+	online: PropTypes.bool.isRequired,
 };
 
 export default withRouter(connect(
-	state => ({user: state.user}),
-	null,
+	state => ({user: state.user, online: state.socket.online}),
+	dispatch => ({signOut: () => dispatch({type: 'SIGN_OUT_SUCCEEDED'})}),
 )(Header));
