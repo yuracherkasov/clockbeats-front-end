@@ -1,0 +1,57 @@
+.drawer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		text-decoration: none;
+
+		li {
+			display: block;
+		}
+	}
+
+	&.panel {
+		width: 290px;
+		padding-top: 64px;
+	}
+
+	&-wrapper {
+		height: 100%;
+		overflow: auto;
+		position: relative;
+		padding: 20px 0;
+		border-right: 1px solid rgba(242, 242, 242, 0.9);
+	}
+
+	nav {
+		a {
+			padding: 10px 30px;
+			font-size: $font-size-lg;
+			display: block;
+			line-height: $line-height-base;
+
+			color: rgba(41, 43, 44, 0.7);
+			font-weight: 400;
+
+			&:hover,
+			&.active {
+				color: $gray-dark;
+			}
+
+			&.active {
+				background-color: #eee;
+			}
+
+			i {
+				margin-right: 10px;
+			}
+		}
+	}
+}

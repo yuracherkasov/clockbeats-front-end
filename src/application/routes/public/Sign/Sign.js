@@ -59,9 +59,11 @@ class SignScene extends Component {
 
 		return (
 			<section className="sign-container">
-				<div className="row justify-content-center">
-					<div className="col-md-6">
-						{this.form}
+				<div className="container">
+					<div className="row justify-content-center">
+						<div className="col-md-6">
+							{this.form}
+						</div>
 					</div>
 				</div>
 			</section>

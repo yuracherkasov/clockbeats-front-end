@@ -17,15 +17,9 @@ class RootContainer extends Component {
 		return (
 			<div className={sign && 'with-background'}>
 				<Header />
-				<main className="main-content">
-					<div className="container">
-						<div className="row">
-							<div className="col">
-								<Routing />
-							</div>
-						</div>
-					</div>
-				</main>
+				<section className="main-content">
+					<Routing />
+				</section>
 
 				<footer className="text-center">
 					Clockbeats IVS ® 2017 All Rights Reserved | Reg. no. DK 36965339. | <Link to="/terms">Terms of Use</Link>

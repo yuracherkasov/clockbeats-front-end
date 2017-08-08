@@ -38,7 +38,11 @@ function Header({user, online, signOut}) {
 								</div>
 							</div>
 							<div className="col-md-4 d-flex align-items-center justify-content-center">
-								<Link to="/" className="text-uppercase">Clockbeats</Link>
+								<Link to="/" className="text-uppercase">
+									<figure className="logo">
+										<img src="https://clockbeats.com/static/img/cb_logo.png" alt="Clockbeats Logo" />
+									</figure>
+								</Link>
 							</div>
 							<div className="col-md-4 d-flex align-items-center justify-content-end">
 								<div className="mr-5">

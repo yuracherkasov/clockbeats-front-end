@@ -91,10 +91,26 @@ textarea {
 	}
 }
 
-main {
+.logo {
+	width: 140px;
+}
+
+.main-content {
 	height: calc(100vh - 81px);
+}
 
+.content {
+	width: calc(100vw - 290px);
+	height: inherit;
+	overflow: hidden;
+	margin-left: auto;
+	background-color: rgba(242,242,242,.9);
 
+	&-wrapper {
+		height: inherit;
+		overflow: auto;
+		position: relative;
+	}
 }
 
 .sign-container {
@@ -104,5 +120,16 @@ main {
 .sign-form {
 	border: 1px solid #eee;
 	padding: 110px 30px;
-	background-color: rgba(255, 255, 255, 0.9);
+	background-color: transparentize($white, .1);
+	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 }
+
+footer {
+	background-color: transparentize($white, .1);
+}
+
+// TODO: add mixin for shadows
+//box-shadow:
+// 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+// 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+// 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
