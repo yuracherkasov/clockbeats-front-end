@@ -6,6 +6,7 @@ import {
 	withRouter,
 } from 'react-router-dom';
 
+import Chat from './Chat';
 import Profile from './Profile';
 import {Drawer} from '../../components/Navigation';
 
@@ -35,7 +36,7 @@ class YouScene extends Component {
 									<Route path={`${match.path}/contacts`} component={Profile} />
 									<Route path={`${match.path}/explore`} component={Profile} />
 									<Route path={`${match.path}/search`} component={Profile} />
-									<Route path={`${match.path}/chat`} component={Profile} />
+									<Route path={`${match.path}/chat`} component={Chat} />
 									<Route path={`${match.path}/cloudbeats`} component={Profile} />
 									<Route path={`${match.path}/workspace`} component={Profile} />
 									<Route path={`${match.path}/settings`} component={Profile} />

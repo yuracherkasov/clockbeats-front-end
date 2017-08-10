@@ -1,0 +1,55 @@
+.chat {
+	padding: 20px 0;
+
+	&.panel {}
+
+	&-wrapper {
+		background-color: white;
+	}
+
+	&-window {
+		height: calc(100vh - 160px);
+		overflow: hidden;
+	}
+
+	&-room {
+		height: 100%;
+		overflow: hidden;
+	}
+
+	&-messages {
+		height: calc(100% - 64px);
+		overflow: auto;
+
+		&-wrapper {
+			height: 100%;
+			padding: 20px;
+		}
+	}
+
+	&-typo {
+		border-top: 1px solid #eee;
+		padding: 20px;
+	}
+}
+
+
+// TODO: create tabs component
+.tabs {
+
+	&.panel {
+		border-bottom: 1px solid #eee;
+	}
+
+	.tab-item {
+		a {
+			display: block;
+			padding: 10px 15px;
+
+			&:hover,
+			&.active {
+				box-shadow: 0 2px #5c90d2;
+			}
+		}
+	}
+}
