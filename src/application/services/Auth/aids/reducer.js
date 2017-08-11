@@ -7,8 +7,9 @@ export default (state = initialState, {type, payload}) => {
 		case AUTH.VERIFY_TOKEN_SUCCEEDED:
 		case AUTH.SIGN_IN_SUCCEEDED:
 		case AUTH.SIGN_UP_SUCCEEDED: {
+			const {user, token} = payload;
 
-			return {...payload.user};
+			return {...user, token};
 		}
 
 		case AUTH.SIGN_OUT_SUCCEEDED:

@@ -7,6 +7,8 @@ import {
 	withRouter
 } from 'react-router-dom';
 
+import {signOutRequestAction} from '../../services/Auth/aids/actions';
+
 function links(user, signOut) {
 	if (!user.username) {
 		return [
@@ -62,5 +64,5 @@ Header.propTypes = {
 
 export default withRouter(connect(
 	state => ({user: state.user, online: state.socket.online}),
-	dispatch => ({signOut: () => dispatch({type: 'SIGN_OUT_SUCCEEDED'})}),
+	dispatch => ({signOut: () => dispatch(signOutRequestAction())}),
 )(Header));

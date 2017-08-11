@@ -51,10 +51,11 @@ class SignScene extends Component {
 	}
 
 	render() {
-		const {user} = this.props;
+		const {user, location} = this.props;
+		const {from} = location.state || {from: {pathname: '/you'}};
 
-		if (user.username) {
-			return <Redirect to="/you" />
+		if (user.token) {
+			return <Redirect to={from} />
 		}
 
 		return (

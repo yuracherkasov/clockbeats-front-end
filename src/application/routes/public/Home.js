@@ -14,7 +14,7 @@ class HomeScene extends Component {
 				"Home" Scene Component
 				<br/>
 
-				{user && <p>Hi, {user.name}</p>}
+				{user && <p>Hi, {user.username}</p>}
 			</div>
 		);
 	}

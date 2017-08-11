@@ -1,6 +1,6 @@
 import Socket from '../../index';
-import Storage from '../../../Storage';
 import {
+	all,
 	put,
 	fork,
 	take,
@@ -22,6 +22,7 @@ import {
 	socketReconnectFailedAction,
 	socketReconnectAttemptAction,
 } from './actions';
+import {AUTH} from '../../../Auth/aids/actions';
 
 function subscription(socket) {
 	return eventChannel(emit => {
@@ -59,11 +60,11 @@ function* handleIO(socket) {
 
 function* flow() {
 	while (true) {
-		const {payload} = yield take('SIGN_IN_SUCCEEDED');
+		const {payload} = yield take([AUTH.SIGN_IN_SUCCEEDED, AUTH.VERIFY_TOKEN_SUCCEEDED]);
 		const socket = yield call(Socket.subscribe, {token: payload.token});
 		const task = yield fork(handleIO, socket);
 
-		yield take('SIGN_OUT_SUCCEEDED');
+		yield take(AUTH.SIGN_OUT_SUCCEEDED);
 		yield call(Socket.unsubscribe);
 		yield cancel(task);
 	}

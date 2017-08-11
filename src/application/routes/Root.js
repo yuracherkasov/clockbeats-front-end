@@ -5,9 +5,17 @@ import {withRouter, Link} from 'react-router-dom';
 import Routing from '../routes';
 import Header from '../components/Header';
 
+import {initializeAction} from '../services/Application/aids/actions';
+
 class RootContainer extends Component {
 	constructor(props) {
 		super(props);
+	}
+
+	componentWillMount() {
+		const {initialize} = this.props;
+
+		initialize();
 	}
 
 	render() {
@@ -29,4 +37,7 @@ class RootContainer extends Component {
 	}
 }
 
-export default withRouter(RootContainer);
+export default withRouter(connect(
+	null,
+	dispatch => ({initialize: () => dispatch(initializeAction())}),
+)(RootContainer));
