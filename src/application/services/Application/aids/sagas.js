@@ -1,37 +1,25 @@
-import Storage from '../../Storage';
 import {delay} from 'redux-saga';
 import {
 	put,
 	fork,
 	take,
-	call,
-	cancel,
-	takeEvery,
 } from 'redux-saga/effects';
 
 import {
 	APP,
+	initializeAction,
 	initializedAction,
 	initializationAction,
 } from './actions';
 
-import {
-	AUTH,
-	verifyTokenRequestAction
-} from '../../Auth/aids/actions';
+import {AUTH} from '../../Auth/aids/actions';
 
-function* verifyTokenRequest() {
-	try {
-		const token = Storage.token;
-
-		if (token) {
-			yield put(verifyTokenRequestAction(token.token));
-		}
-
-	} catch (error) {}
+function* watch() {
+	yield take(APP.INITIALIZE);
+	yield fork(initialization);
 }
 
-function* initializationFlow() {
+function* initialization() {
 	while (true) {
 		yield take([
 			AUTH.VERIFY_TOKEN_REQUESTED,
@@ -42,21 +30,20 @@ function* initializationFlow() {
 		yield put(initializationAction());
 
 		yield take([
-			AUTH.VERIFY_TOKEN_SUCCEEDED,
 			AUTH.SIGN_IN_SUCCEEDED,
-			AUTH.SIGN_UP_SUCCEEDED,
-			AUTH.VERIFY_TOKEN_FAILED,
 			AUTH.SIGN_IN_FAILED,
+			AUTH.SIGN_UP_SUCCEEDED,
 			AUTH.SIGN_UP_FAILED,
+			AUTH.VERIFY_TOKEN_SUCCEEDED,
+			AUTH.VERIFY_TOKEN_FAILED,
 		]);
 
-		// TODO: remove DELAY
-		yield delay(2000);
+		yield delay(600);
 		yield put(initializedAction());
 	}
 }
 
 export default [
-	fork(initializationFlow),
-	takeEvery(APP.INITIALIZE, verifyTokenRequest),
+	fork(watch),
+	put(initializeAction()),
 ];

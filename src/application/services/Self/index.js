@@ -1,12 +1,13 @@
-import {delay} from 'redux-saga';
+import Request from '../Request';
 
-export function* self(email) {
-	yield delay(1000);
+export function self() {
+	return Request.get('self');
+}
 
-	return {
-		id: '9379992',
-		email,
-		name: 'Paolo Mantini',
-		username: 'paolomantini',
-	};
+export function contacts() {
+	return Request.get('self/relationships');
+}
+
+export function profile() {
+	return Request.get('self/profile');
 }

@@ -16,17 +16,19 @@ class YouScene extends Component {
 	}
 
 	render() {
-		const {app, user, match, location} = this.props;
+		const {app, token, match, location} = this.props;
 
 		if (app.initialization) {
 			return <div id="page-loader" />
 		}
 
-		if (!user.token) {
-			return <Redirect to={{
+		if (!token) {
+			const redirect = {
 				pathname: '/sign-in',
-				state: {from: location},
-			}} />
+				state: {from: location}
+			};
+
+			return <Redirect to={redirect} />
 		}
 
 		return (
@@ -60,7 +62,7 @@ class YouScene extends Component {
 
 const mapStateToProps = state => ({
 	app: state.app,
-	user: state.user,
+	token: state.auth.token,
 });
 
 export default withRouter(connect(

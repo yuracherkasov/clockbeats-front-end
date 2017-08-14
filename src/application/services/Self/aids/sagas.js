@@ -1,27 +1,88 @@
 import * as User from './../index';
 import {
-	call,
+	all,
 	put,
-	takeLatest,
+	fork,
+	take,
+	call,
+	cancel,
+	actionChannel,
 } from 'redux-saga/effects';
+
+import {AUTH} from '../../Auth/aids/actions';
 
 import {
 	USER,
+	selfRequestAction,
 	selfRequestSucceededAction,
 	selfRequestFailedAction,
 } from './actions';
 
-function* selfRequest({payload}) {
+function* _call(fn, {resolve, reject}) {
 	try {
-		const {email} = payload;
-		const user = yield call(User.self, email);
+		const {status, data, error} = yield call(fn);
 
-		yield put(selfRequestSucceededAction(user));
-	} catch (error) {
-		yield put(selfRequestFailedAction(error));
+		if (status !== 200) {
+			return yield put(reject(error.message));
+		}
+
+		yield put(resolve(data));
+	} catch(error) {
+		yield put(reject(error.message));
 	}
 }
 
-export const selfSagas = [
-	takeLatest(USER.FETCH_REQUESTED, selfRequest),
+function* self() {
+	const channel = yield actionChannel(USER.SELF_REQUESTED);
+
+	while (true) {
+		yield take(channel);
+
+		const actions = {
+			resolve: selfRequestSucceededAction,
+			reject: selfRequestFailedAction,
+		};
+
+		yield call(_call, User.self, actions);
+	}
+}
+
+function* profile() {
+	const channel = yield actionChannel('PROFILE');
+
+	while (true) {
+		yield take(channel);
+
+		const actions = {
+			resolve: (profile) => ({type: 'PROFILE_SUCCEEDED', payload: {profile}}),
+			reject: (error) => ({type: 'PROFILE_FAILED', payload: {error}}),
+		};
+
+		yield call(_call, User.profile, actions);
+	}
+}
+
+function* flow() {
+	const channel = yield actionChannel([
+		AUTH.SIGN_IN_SUCCEEDED,
+		AUTH.SIGN_UP_SUCCEEDED,
+		AUTH.VERIFY_TOKEN_SUCCEEDED,
+	]);
+
+	while(true) {
+		yield take(channel);
+		const tasks = yield all([fork(self), fork(profile)]);
+
+		yield all([
+			put(selfRequestAction()),
+			put({type: 'PROFILE'})
+		]);
+
+		yield take(AUTH.SIGN_OUT_SUCCEEDED);
+		yield cancel(...tasks);
+	}
+}
+
+export default [
+	fork(flow),
 ];

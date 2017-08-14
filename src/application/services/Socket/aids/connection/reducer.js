@@ -1,4 +1,5 @@
 import {SOCKET_CONNECTION} from './actions';
+import {AUTH} from '../../../Auth/aids/actions';
 
 const initialState = {
 	online: false,
@@ -52,6 +53,10 @@ export default (state = initialState, {type, payload}) => {
 				online: false,
 				errors: [...state.errors, `Connection timeout. ${payload.timeout}`],
 			};
+		}
+
+		case AUTH.SIGN_OUT_SUCCEEDED: {
+			return initialState;
 		}
 
 		default: {

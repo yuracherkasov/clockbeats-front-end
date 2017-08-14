@@ -1,15 +1,17 @@
 import {USER} from './actions';
+import {AUTH} from '../../Auth/aids/actions';
 
 const initialState = {};
 
 export default (state = initialState, {type, payload}) => {
 	switch (type) {
-		case USER.FETCH_SUCCEEDED: {
+		case USER.SELF_REQUEST_SUCCEEDED: {
 			return {...payload.user};
 		}
 
-		case USER.FETCH_FAILED: {
-			return {};
+		case AUTH.SIGN_OUT_SUCCEEDED:
+		case USER.SELF_REQUESTED_FAILED: {
+			return initialState;
 		}
 
 		default: {

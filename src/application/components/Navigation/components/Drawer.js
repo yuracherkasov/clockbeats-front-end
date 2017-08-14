@@ -10,12 +10,12 @@ class DrawerContainer extends Component {
 	}
 
 	render() {
-		const {online} = this.props;
+		const {online, user} = this.props;
 
 		return (
 			<aside className="drawer panel">
 				<div className="drawer-wrapper">
-					<LargeMacroProfile online={online} />
+					<LargeMacroProfile online={online} user={user} />
 					<nav>
 						<ul>
 							<li>
@@ -81,5 +81,5 @@ class DrawerContainer extends Component {
 }
 
 export default withRouter(connect(
-	state => ({online: state.socket.online}),
+	state => ({user: state.user, online: state.socket.online}),
 )(DrawerContainer));

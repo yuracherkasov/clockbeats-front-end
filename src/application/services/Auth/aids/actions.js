@@ -20,8 +20,8 @@ export function signInRequestAction({email, password}) {
 	return {type: AUTH.SIGN_IN_REQUESTED, payload: {email, password}};
 }
 
-export function signInSuccessAction(user) {
-	return {type: AUTH.SIGN_IN_SUCCEEDED, payload: user};
+export function signInSuccessAction(token) {
+	return {type: AUTH.SIGN_IN_SUCCEEDED, payload: {token}};
 }
 
 export function signInFailedAction(error) {
@@ -32,8 +32,8 @@ export function signUpRequestAction({email, password, username}) {
 	return {type: AUTH.SIGN_UP_REQUESTED, payload: {email, password, username}};
 }
 
-export function signUpSuccessAction(user) {
-	return {type: AUTH.SIGN_UP_SUCCEEDED, payload: user};
+export function signUpSuccessAction(token) {
+	return {type: AUTH.SIGN_UP_SUCCEEDED, payload: {token}};
 }
 
 export function signUpFailedAction(error) {
@@ -56,8 +56,8 @@ export function verifyTokenRequestAction(token) {
 	return {type: AUTH.VERIFY_TOKEN_REQUESTED, payload: {token}};
 }
 
-export function verifyTokenSuccessAction(user) {
-	return {type: AUTH.VERIFY_TOKEN_SUCCEEDED, payload: user};
+export function verifyTokenSuccessAction(token) {
+	return {type: AUTH.VERIFY_TOKEN_SUCCEEDED, payload: {token}};
 }
 
 export function verifyTokenFailedAction(error) {

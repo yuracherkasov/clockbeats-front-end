@@ -1,9 +1,13 @@
 import * as Auth from './../index';
 import Storage from '../../Storage';
 import {
+	all,
 	call,
+	fork,
+	take,
 	put,
-	takeLatest,
+	flush,
+	actionChannel,
 } from 'redux-saga/effects';
 
 import {
@@ -14,80 +18,108 @@ import {
 	signInFailedAction,
 	signUpFailedAction,
 	signOutFailedAction,
+	verifyTokenRequestAction,
 	verifyTokenSuccessAction,
 	verifyTokenFailedAction,
 } from './actions';
 
-function* signIn({payload}) {
+import {APP} from '../../Application/aids/actions';
+
+function* _call(fn, {resolve, reject}) {
 	try {
+		const {status, data, error} = yield call(fn);
+
+		if (status === 200) {
+			const {token} = data;
+			Storage.token = {token};
+			return yield put(resolve(data));
+		}
+
+		Storage.token = null;
+		yield put(reject(error.message));
+	} catch (error) {
+		Storage.token = null;
+		yield put(reject(error.message));
+	}
+}
+
+function* authenticate() {
+	const channel = yield actionChannel(AUTH.SIGN_IN_REQUESTED);
+
+	while (true) {
+		const {payload} = yield take(channel);
 		const {email, password} = payload;
-		const {status, data, error} = yield call(Auth.authenticate, email, password);
+		const actions = {
+			resolve: signInSuccessAction,
+			reject: signInFailedAction,
+		};
 
-		if (status === 200) {
-			// TODO: create middleware
-			Storage.token = {token: data.token};
-			return yield put(signInSuccessAction(data));
-		}
-
-		Storage.token = null;
-		yield put(signInFailedAction(error.message));
-	} catch (error) {
-		Storage.token = null;
-		yield put(signInFailedAction(error.message));
+		yield call(_call, Auth.authenticate.bind(null, email, password), actions);
 	}
 }
 
-function* signUp({payload}) {
-	try {
+function* authorize() {
+	const channel = yield actionChannel(AUTH.SIGN_UP_REQUESTED);
+
+	while (true) {
+		const {payload} = yield take(channel);
 		const {email, password, username} = payload;
-		const {status, data, error} = yield call(Auth.authorize, email, password, username);
+		const actions = {
+			resolve: signUpSuccessAction,
+			reject: signUpFailedAction,
+		};
 
-		if (status === 200) {
-			// TODO: create middleware
-			Storage.token = {token: data.token};
-			return yield put(signUpSuccessAction(data));
-		}
-
-		Storage.token = null;
-		yield put(signUpFailedAction(error.message));
-	} catch (error) {
-		Storage.token = null;
-		yield put(signUpFailedAction(error.message));
+		yield call(_call, Auth.authorize.bind(null, email, password, username), actions);
 	}
 }
 
-function* singOut() {
-	try {
-		Storage.token = null;
-		yield put(signOutSuccessAction());
-	} catch (error) {
-		yield put(signOutFailedAction(error));
-	}
-}
+function* verify() {
+	const channel = yield actionChannel(AUTH.VERIFY_TOKEN_REQUESTED);
 
-function* verify({payload}) {
 	try {
+		const {payload} = yield take(channel);
 		const {token} = payload;
-		const {status, data, error} = yield call(Auth.verify, token);
+		const actions = {
+			resolve: verifyTokenSuccessAction,
+			reject: verifyTokenFailedAction,
+		};
 
-		if (status === 200) {
-			// TODO: create middleware
-			Storage.token = {token: data.token};
-			return yield put(verifyTokenSuccessAction(data));
-		}
+		yield call(_call, Auth.verify.bind(null, token), actions);
 
-		Storage.token = null;
-		yield put(verifyTokenFailedAction(error.message));
-	} catch (error) {
-		Storage.token = null;
-		yield put(verifyTokenFailedAction(error.message));
+	} finally {
+		yield flush(channel);
 	}
+}
+
+function* signOut() {
+	const channel = yield actionChannel(AUTH.SIGN_OUT_REQUESTED);
+
+	while (true) {
+		yield take(channel);
+		yield put(signOutSuccessAction());
+	}
+}
+
+function* token() {
+	yield take(APP.INITIALIZE);
+	const token = Storage.token;
+
+	if (token) {
+		yield put(verifyTokenRequestAction(token.token));
+	}
+}
+
+function* flow() {
+	yield all([
+		call(verify),
+		call(authorize),
+		call(authenticate),
+		call(signOut),
+	]);
 }
 
 
 export default [
-	takeLatest(AUTH.SIGN_IN_REQUESTED, signIn),
-	takeLatest(AUTH.SIGN_UP_REQUESTED, signUp),
-	takeLatest(AUTH.SIGN_OUT_REQUESTED, singOut),
-	takeLatest(AUTH.VERIFY_TOKEN_REQUESTED, verify),
+	fork(flow),
+	call(token),
 ];

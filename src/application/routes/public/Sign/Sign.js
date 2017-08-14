@@ -51,10 +51,10 @@ class SignScene extends Component {
 	}
 
 	render() {
-		const {user, location} = this.props;
+		const {token, location} = this.props;
 		const {from} = location.state || {from: {pathname: '/you'}};
 
-		if (user.token) {
+		if (token) {
 			return <Redirect to={from} />
 		}
 
@@ -74,7 +74,7 @@ class SignScene extends Component {
 }
 
 const mapStateToProps = state => ({
-	user: state.user,
+	token: state.auth.token,
 });
 
 const mapDispatchToProps = dispatch => ({

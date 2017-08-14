@@ -6,6 +6,7 @@ import {
 	take,
 	call,
 	cancel,
+	actionChannel,
 } from 'redux-saga/effects';
 import {eventChannel} from 'redux-saga';
 import {
@@ -26,8 +27,8 @@ import {AUTH} from '../../../Auth/aids/actions';
 
 function subscription(socket) {
 	return eventChannel(emit => {
-		socket.on('ping', () => emit(socketPing()));
-		socket.on('pong', (latency) => emit(socketPong(latency)));
+		// socket.on('ping', () => emit(socketPing()));
+		// socket.on('pong', (latency) => emit(socketPong(latency)));
 		socket.on('error', (error) => emit(socketErrorAction(error)));
 		socket.on('disconnect', (reason) => emit(socketDisconnectAction(reason)));
 
@@ -59,8 +60,14 @@ function* handleIO(socket) {
 }
 
 function* flow() {
+	const channel = yield actionChannel([
+		AUTH.SIGN_IN_SUCCEEDED,
+		AUTH.SIGN_UP_SUCCEEDED,
+		AUTH.VERIFY_TOKEN_SUCCEEDED,
+	]);
+
 	while (true) {
-		const {payload} = yield take([AUTH.SIGN_IN_SUCCEEDED, AUTH.VERIFY_TOKEN_SUCCEEDED]);
+		const {payload} = yield take(channel);
 		const socket = yield call(Socket.subscribe, {token: payload.token});
 		const task = yield fork(handleIO, socket);
 
