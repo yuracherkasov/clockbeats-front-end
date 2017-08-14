@@ -7,7 +7,6 @@ import {
 
 import {
 	APP,
-	initializeAction,
 	initializedAction,
 	initializationAction,
 } from './actions';
@@ -45,5 +44,4 @@ function* initialization() {
 
 export default [
 	fork(watch),
-	put(initializeAction()),
 ];

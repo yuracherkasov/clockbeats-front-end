@@ -4,8 +4,8 @@ export const APP = {
 	INITIALIZED: 'INITIALIZED',
 };
 
-export function initializeAction() {
-	return {type: APP.INITIALIZE};
+export function initializeAction(payload) {
+	return {type: APP.INITIALIZE, payload};
 }
 
 export function initializationAction() {
