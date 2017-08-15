@@ -19,10 +19,10 @@ const CONFIG = {
 class SocketService {
 	constructor() {}
 
-	subscribe = ({token}) => {
-		if (!token) throw new Error('To open connection to the server you should provide USER TOKEN');
+	subscribe = ({user}) => {
+		if (!user) throw new Error('To open connection to the server you should provide USER TOKEN');
 
-		this.socket = new IO(CONFIG.uri, {...CONFIG.options, query: {token}});
+		this.socket = new IO(CONFIG.uri, {...CONFIG.options, query: {user}});
 
 		return Promise.resolve(this.socket).then(socket => socket.open());
 	};

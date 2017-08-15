@@ -23,6 +23,7 @@ import {
 	socketReconnectFailedAction,
 	socketReconnectAttemptAction,
 } from './actions';
+import {USER} from '../../../Self/aids/actions';
 import {AUTH} from '../../../Auth/aids/actions';
 
 function subscription(socket) {
@@ -60,18 +61,14 @@ function* handleIO(socket) {
 }
 
 function* flow() {
-	const channel = yield actionChannel([
-		AUTH.SIGN_IN_SUCCEEDED,
-		AUTH.SIGN_UP_SUCCEEDED,
-		AUTH.VERIFY_TOKEN_SUCCEEDED,
-	]);
+	const channel = yield actionChannel(USER.SELF_REQUEST_SUCCEEDED);
 
 	while (true) {
 		const {payload} = yield take(channel);
-		const socket = yield call(Socket.subscribe, {token: payload.token});
+		const socket = yield call(Socket.subscribe, {user: payload.user.id});
 		const task = yield fork(handleIO, socket);
 
-		yield take(AUTH.SIGN_OUT_SUCCEEDED);
+		yield take([USER.SELF_REQUESTED_FAILED, AUTH.SIGN_OUT_SUCCEEDED]);
 		yield call(Socket.unsubscribe);
 		yield cancel(task);
 	}
