@@ -9,47 +9,61 @@ import {
 
 import {signOutRequestAction} from '../../services/Auth/aids/actions';
 
-function links(user, signOut) {
-	if (!user.username) {
-		return [
-			<Link key={1} to="/sign-in" className="btn btn-secondary mr-3">Sign In</Link>,
-			<Link key={0} to="/sign-up" className="btn btn-primary">Sign up</Link>,
-		];
-	}
-
-	return (
-		<div>
-			<Link to="/you/profile">Hello, {user.username}</Link>
-			<div className="btn btn-primary ml-3" onClick={() => signOut()}>Sign Out</div>
-		</div>
-	);
-}
-
-function Header({user, online, signOut}) {
+function Header({user, signOut}) {
 	return (
 		<header className="page-header">
 			<nav className="navigation navigation-head">
 				<div className="container-fluid">
 					<div className="row">
-							<div className="col-md-4 d-flex align-items-center">
-								<div className="ml-5">
-									<NavLink to="/" exact className="item" activeClassName="active">Home</NavLink>
-									<NavLink to="/intro" className="item" activeClassName="active">Get Started</NavLink>
-									<a href="https://store.clockbeats.com/" className="item">Store</a>
+						<div className="col-md-4 d-flex align-items-center">
+							<div className="ml-5">
+								<NavLink to="/" exact className="item" activeClassName="active">Home</NavLink>
+								<NavLink to="/intro" className="item" activeClassName="active">Get Started</NavLink>
+								<a href="https://store.clockbeats.com/" className="item">Store</a>
+							</div>
+						</div>
+						<div className="col-md-4 d-flex align-items-center justify-content-center">
+							<Link to="/" className="text-uppercase">
+								<figure className="logo">
+									<img src="https://clockbeats.com/static/img/cb_logo.png" alt="Clockbeats Logo" />
+								</figure>
+							</Link>
+						</div>
+						<div className="col-md-4 align-items-center">
+							{user.username && (
+								<div className="p-2 h-100 d-flex align-items-center justify-content-end mr-5">
+									<div className="mr-3" style={{cursor: 'pointer'}}>
+										<Link className="text-muted" to="/you/explore">
+											<i className="fa fa-compass fa-fw fa-lg" aria-hidden="true" />
+										</Link>
+									</div>
+									<div className="mr-3" style={{cursor: 'pointer'}}>
+										<Link className="text-muted" to="/you/chat">
+											<i className="fa fa-inbox fa-fw fa-lg" aria-hidden="true" />
+										</Link>
+									</div>
+									<div className="mr-3" style={{cursor: 'pointer'}}>
+										<Link className="text-muted" to="/you/workspace">
+											<i className="fa fa-briefcase fa-fw fa-lg" aria-hidden="true" />
+										</Link>
+									</div>
+									<div className="mr-3 text-muted" style={{cursor: 'pointer'}}>
+										<i className="fa fa-bell fa-fw fa-lg" aria-hidden="true" />
+									</div>
+
+									<div className="ml-3 mr-3 text-muted" style={{cursor: 'pointer'}} onClick={() => signOut()}>
+										Sign Out <i className="fa fa-sign-out fa-fw fa-lg" aria-hidden="true" />
+									</div>
 								</div>
-							</div>
-							<div className="col-md-4 d-flex align-items-center justify-content-center">
-								<Link to="/" className="text-uppercase">
-									<figure className="logo">
-										<img src="https://clockbeats.com/static/img/cb_logo.png" alt="Clockbeats Logo" />
-									</figure>
-								</Link>
-							</div>
-							<div className="col-md-4 d-flex align-items-center justify-content-end">
-								<div className="mr-5">
-									{links(user, signOut)}
+							)}
+
+							{!user.username && (
+								<div className="d-flex align-items-center justify-content-end mr-5">
+									<Link to="/sign-in" className="btn btn-secondary mr-3">Sign In</Link>
+									<Link to="/sign-up" className="btn btn-primary">Sign up</Link>
 								</div>
-							</div>
+							)}
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -59,7 +73,6 @@ function Header({user, online, signOut}) {
 
 Header.propTypes = {
 	user: PropTypes.object.isRequired,
-	online: PropTypes.bool.isRequired,
 };
 
 export default withRouter(connect(
