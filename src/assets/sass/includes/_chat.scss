@@ -9,7 +9,7 @@
 
 	&-window {
 		height: calc(100vh - 160px);
-		overflow: hidden;
+		overflow: auto;
 	}
 
 	&-room {
@@ -29,7 +29,19 @@
 
 	&-typo {
 		border-top: 1px solid #eee;
-		padding: 20px;
+		padding: 10px;
+
+		.form-group {
+			margin: 0;
+			width: 88%;
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		span {
+			vertical-align: middle;
+			cursor: pointer;
+		}
 	}
 }
 
