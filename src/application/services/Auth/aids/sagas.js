@@ -96,6 +96,7 @@ function* signOut() {
 
 	while (true) {
 		yield take(channel);
+		Storage.token = null;
 		yield put(signOutSuccessAction());
 	}
 }
