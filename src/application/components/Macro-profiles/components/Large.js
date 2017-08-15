@@ -21,7 +21,7 @@ export default class LargeMacroProfile extends PureComponent {
 				</div>
 
 				<div className="macro-description text-muted">
-					{user.description || ''}
+					{user.summary || ''}
 				</div>
 			</div>
 		);
