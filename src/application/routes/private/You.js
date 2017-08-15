@@ -7,8 +7,10 @@ import {
 } from 'react-router-dom';
 
 import Chat from './Chat';
+import Contacts from './Contacts';
 import Profile from './Profile';
 import {Drawer} from '../../components/Navigation';
+import Loading from '../../components/Loading';
 
 class YouScene extends Component {
 	constructor(props) {
@@ -19,7 +21,7 @@ class YouScene extends Component {
 		const {app, token, match, location} = this.props;
 
 		if (app.initialization) {
-			return <div id="page-loader" />
+			return <Loading />;
 		}
 
 		if (!token) {
@@ -42,7 +44,7 @@ class YouScene extends Component {
 								<div className="col">
 									<Route exact path={`${match.path}`} component={Profile} />
 									<Route path={`${match.path}/profile`} component={Profile} />
-									<Route path={`${match.path}/contacts`} component={Profile} />
+									<Route path={`${match.path}/contacts`} component={Contacts} />
 									<Route path={`${match.path}/explore`} component={Profile} />
 									<Route path={`${match.path}/search`} component={Profile} />
 									<Route path={`${match.path}/chat`} component={Chat} />
