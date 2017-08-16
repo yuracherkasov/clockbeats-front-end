@@ -1,16 +1,16 @@
 export const SOCKET_CONNECTION = {
-	PING: '@@SOCKET_ping',
-	PONG: '@@SOCKET_pong',
-	ERROR: '@@SOCKET_error',
-	DISCONNECT: '@@SOCKET_disconnect',
-	CONNECT: '@@SOCKET_connect',
-	CONNECT_ERROR: '@@SOCKET_connect_error',
-	CONNECT_TIMEOUT: '@@SOCKET_connect_timeout',
-	RECONNECT: '@@SOCKET_reconnect',
-	RECONNECTING: '@@SOCKET_reconnecting',
-	RECONNECT_ERROR: '@@SOCKET_reconnect_error',
-	RECONNECT_FAILED: '@@SOCKET_reconnect_failed',
-	RECONNECT_ATTEMPT: '@@SOCKET_reconnect_attempt',
+	PING: '@@SOCKET/ping',
+	PONG: '@@SOCKET/pong',
+	ERROR: '@@SOCKET/error',
+	DISCONNECT: '@@SOCKET/disconnect',
+	CONNECT: '@@SOCKET/connect',
+	CONNECT_ERROR: '@@SOCKET/connect_error',
+	CONNECT_TIMEOUT: '@@SOCKET/connect_timeout',
+	RECONNECT: '@@SOCKET/reconnect',
+	RECONNECTING: '@@SOCKET/reconnecting',
+	RECONNECT_ERROR: '@@SOCKET/reconnect_error',
+	RECONNECT_FAILED: '@@SOCKET/reconnect_failed',
+	RECONNECT_ATTEMPT: '@@SOCKET/reconnect_attempt',
 };
 
 /* PING */

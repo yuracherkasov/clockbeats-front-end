@@ -6,30 +6,27 @@ const CONFIG = {
 	options: {
 		forceNew: false,
 		autoConnect: false,
-		transports: ['websocket'],
+		transports: ['websocket', 'polling'],
 		upgrade: false,
 		reconnection: true,
-		reconnectionAttempts: 5,
-		reconnectionDelay: 1000,
-		reconnectionDelayMax: 3000,
-		timeout: 5000,
 	}
 };
 
 class SocketService {
 	constructor() {}
 
-	subscribe = ({user}) => {
-		if (!user) throw new Error('To open connection to the server you should provide USER TOKEN');
+	subscribe = (query) => {
+		const options = query ? {...CONFIG.options, query} : CONFIG.options;
 
-		this.socket = new IO(CONFIG.uri, {...CONFIG.options, query: {user}});
+		this.socket = new IO(CONFIG.uri, options);
 
-		return Promise.resolve(this.socket).then(socket => socket.open());
+		return Promise.resolve(this.socket.open());
 	};
 
 	unsubscribe = () => {
 		this.socket.close();
 		this.socket.removeAllListeners();
+		this.socket = null;
 	};
 
 	listen = (event) => {
