@@ -15,7 +15,7 @@ class DrawerContainer extends Component {
 		return (
 			<aside className="drawer panel">
 				<div className="drawer-wrapper">
-					<LargeMacroProfile online={online} user={user} />
+					<LargeMacroProfile online={online} user={{...user, summary: 'Different kinds of caches'}} />
 					<nav>
 						<ul>
 							<li>

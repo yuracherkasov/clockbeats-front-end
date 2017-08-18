@@ -9,6 +9,7 @@ import {
 import Chat from './Chat';
 import Contacts from './Contacts';
 import Profile from './Profile';
+import Search from './Search';
 import {Drawer} from '../../components/Navigation';
 import Loading from '../../components/Loading';
 
@@ -46,7 +47,7 @@ class YouScene extends Component {
 									<Route path={`${match.path}/profile`} component={Profile} />
 									<Route path={`${match.path}/contacts`} component={Contacts} />
 									<Route path={`${match.path}/explore`} component={Profile} />
-									<Route path={`${match.path}/search`} component={Profile} />
+									<Route path={`${match.path}/search`} component={Search} />
 									<Route path={`${match.path}/chat`} component={Chat} />
 									<Route path={`${match.path}/cloudbeats`} component={Profile} />
 									<Route path={`${match.path}/workspace`} component={Profile} />

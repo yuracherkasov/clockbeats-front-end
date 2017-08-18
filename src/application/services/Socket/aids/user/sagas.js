@@ -22,23 +22,17 @@ import {SOCKET_CONNECTION} from '../connection/actions';
 
 function subscription() {
 	return eventChannel(emit => {
-		Socket.listen('subscribe_succeeded')
-			.then(result => emit(socketSubscribeSucceededAction(result)));
+		Socket.socket.on('subscribe_succeeded', result => emit(socketSubscribeSucceededAction(result)));
 
-		Socket.listen('subscribe_failed')
-			.then(error => emit(socketSubscribeFailedAction(error.message)));
+		Socket.socket.on('subscribe_failed', error => emit(socketSubscribeFailedAction(error.message)));
 
-		Socket.listen('subscribe_error')
-			.then(error => emit(socketSubscribeErrorAction(error.message)));
+		Socket.socket.on('subscribe_error', error => emit(socketSubscribeErrorAction(error.message)));
 
-		Socket.listen('friends_online')
-			.then(users => emit(socketFriendsOnlineAction(users)));
+		Socket.socket.on('friends_online', users => emit(socketFriendsOnlineAction(users)));
 
-		Socket.listen('notification')
-			.then(notification => emit(socketNotificationAction(notification)));
+		Socket.socket.on('notification', notification => emit(socketNotificationAction(notification)));
 
-		Socket.listen('chat_message')
-			.then(message => emit(socketChatMessageAction(message)));
+		Socket.socket.on('chat_message', message => emit(socketChatMessageAction(message)));
 
 		return Socket.unsubscribe;
 	});

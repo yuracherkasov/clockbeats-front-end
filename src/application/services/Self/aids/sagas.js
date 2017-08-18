@@ -74,8 +74,7 @@ function* flow() {
 		const tasks = yield all([fork(self), fork(profile)]);
 
 		yield all([
-			put(selfRequestAction()),
-			put({type: 'PROFILE'})
+			put(selfRequestAction())
 		]);
 
 		yield take(AUTH.SIGN_OUT_SUCCEEDED);

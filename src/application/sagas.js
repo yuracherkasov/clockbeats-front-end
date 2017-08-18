@@ -6,6 +6,7 @@ import signSagas from './services/Auth/aids/sagas';
 import selfSagas from './services/Self/aids/sagas';
 import socketConnectionSagas from './services/Socket/aids/connection/sagas';
 import socketUserSagas from './services/Socket/aids/user/sagas';
+import usersSagas from './services/Users/aids/sagas';
 
 export default function* sagas() {
 	yield all([
@@ -13,6 +14,7 @@ export default function* sagas() {
 		...browserMediaSagas,
 		...signSagas,
 		...selfSagas,
+		...usersSagas,
 		...socketConnectionSagas,
 		...socketUserSagas,
 	])

@@ -1,6 +1,5 @@
 import Socket from '../../index';
 import {
-	all,
 	put,
 	fork,
 	take,
@@ -56,19 +55,16 @@ function* read(socket) {
 	}
 }
 
-function* handleIO(socket) {
-	yield fork(read, socket);
-}
-
 function* flow() {
-	const channel = yield actionChannel(USER.SELF_REQUEST_SUCCEEDED);
+	const connect = yield actionChannel(USER.SELF_REQUEST_SUCCEEDED);
+	const disconnect = yield actionChannel([USER.SELF_REQUESTED_FAILED, AUTH.SIGN_OUT_SUCCEEDED]);
 
 	while (true) {
-		const {payload} = yield take(channel);
+		const {payload} = yield take(connect);
 		const socket = yield call(Socket.subscribe, {user: payload.user.id});
-		const task = yield fork(handleIO, socket);
+		const task = yield fork(read, socket);
 
-		yield take([USER.SELF_REQUESTED_FAILED, AUTH.SIGN_OUT_SUCCEEDED]);
+		yield take(disconnect);
 		yield call(Socket.unsubscribe);
 		yield cancel(task);
 	}

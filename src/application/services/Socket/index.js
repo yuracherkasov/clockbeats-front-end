@@ -29,30 +29,6 @@ class SocketService {
 		this.socket = null;
 	};
 
-	listen = (event) => {
-		const handler = (resolve, reject) => {
-			if (Object.is(this.socket, null)) {
-				reject(new Error('No socket connection found.'));
-			}
-
-			this.socket.on(event, resolve);
-		};
-
-		return new Promise(handler);
-	};
-
-	emit = (event, data) => {
-		const handler = (resolve, reject) => {
-			if (Object.is(this.socket, null)) {
-				reject(new Error('No socket connection found.'));
-			}
-
-			this.socket.emit(event, data, resolve);
-		};
-
-		return new Promise(handler);
-	}
-
 }
 
 export default new SocketService();
