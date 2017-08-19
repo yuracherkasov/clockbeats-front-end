@@ -3,13 +3,13 @@ export const SOCKET_USER = {
 	SUBSCRIBE_FAILED: 'SOCKET_SUBSCRIBE_FAILED',
 	SUBSCRIBE_ERROR: 'SOCKET_SUBSCRIBE_ERROR',
 
-	FRIENDS_ONLINE: 'FRIENDS_ONLINE',
-	NOTIFICATION: 'NOTIFICATION',
-	CHAT_MESSAGE: 'CHAT_MESSAGE',
+	FRIENDS_ONLINE: 'SOCKET_FRIENDS_ONLINE',
+	NOTIFICATION: 'SOCKET_NOTIFICATION',
+	CHAT_MESSAGE: 'SOCKET_CHAT_MESSAGE',
 };
 
-export function socketSubscribeSucceededAction(result) {
-	return {type: SOCKET_USER.SUBSCRIBE_SUCCEEDED, payload: {result}};
+export function socketSubscribeSucceededAction(friends) {
+	return {type: SOCKET_USER.SUBSCRIBE_SUCCEEDED, payload: {friends}};
 }
 
 export function socketSubscribeFailedAction(error) {
@@ -20,8 +20,8 @@ export function socketSubscribeErrorAction(error) {
 	return {type: SOCKET_USER.SUBSCRIBE_ERROR, payload: {error}};
 }
 
-export function socketFriendsOnlineAction(users) {
-	return {type: SOCKET_USER.FRIENDS_ONLINE, payload: {users}};
+export function socketFriendsOnlineAction(friends) {
+	return {type: SOCKET_USER.FRIENDS_ONLINE, payload: {friends}};
 }
 
 export function socketNotificationAction(notification) {

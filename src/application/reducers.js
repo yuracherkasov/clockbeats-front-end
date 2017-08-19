@@ -7,6 +7,8 @@ import users from './services/Users/aids/reducer';
 import socket from './services/Socket/aids/connection/reducer';
 import browser from './services/Browser/Media/aids/reducer';
 
+import online from './services/Socket/aids/user/reducer';
+
 export default combineReducers({
 	app,
 	auth,
@@ -14,4 +16,5 @@ export default combineReducers({
 	users,
 	socket,
 	browser,
+	online,
 });

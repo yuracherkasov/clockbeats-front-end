@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import {createSelector} from 'reselect';
+import head from 'lodash/head';
+
 import {usersFollowRequestAction} from '../../../services/Users/aids/actions';
 
 class SearchScene extends Component {
@@ -26,13 +29,13 @@ class SearchScene extends Component {
 												<figure className="w-25 mr-3 mb-0 macro-avatar">
 													<img src="https://semantic-ui.com/images/wireframe/square-image.png" alt="Avatar" />
 												</figure>
-												<div className="w-50">
+												<div className="w-25">
 													<h2 className="h1 m-0 macro-username">
 														<Link to={`/${user.username}`} >{user.username} {user.online ? <small className="text-success font-weight-normal">online</small> : <small className="text-muted font-weight-normal">offline</small>}</Link>
 													</h2>
 													<p className="m-0 macro-description">{user.summary}</p>
 												</div>
-												<div className="w-25 ml-5">
+												<div className="w-50 ml-5">
 													<span className="ml-2">
 														<button type="button" className="btn btn-primary" onClick={() => follow(user.id)}>Add to friends</button>
 													</span>
@@ -53,9 +56,21 @@ class SearchScene extends Component {
 	}
 }
 
+const onlineFriends = createSelector(
+	state => state.user,
+	state => state.users,
+	state => state.online,
+	(self, users, online) =>
+		users.map(user => ({
+			...user,
+			online: !!head(online.filter(id => user.id === id)),
+		}))
+);
+
 const mapStateToProps = state => ({
-	users: state.users,
+	users: onlineFriends(state),
 });
+
 const mapDispatchToProps = dispatch => ({
 	follow: user => dispatch(usersFollowRequestAction(user)),
 });
