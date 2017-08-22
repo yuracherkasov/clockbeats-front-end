@@ -31,7 +31,7 @@ const PORT = process.env.PORT || '3000';
 const rules = {
 	js: {
 		test: /\.js$/,
-		exclude: /node_modules/,
+		exclude: /(node_modules(?!\/rxjs))/,
 		loader: 'babel-loader',
 	},
 
@@ -219,7 +219,9 @@ if (PRODUCTION) {
 	config.plugins.push(
 		new WebpackMd5Hash(),
 		new UglifyJsPlugin({
+			sourceMap: true,
 			comments: false,
+			beautify: false,
 			compress: {
 				unused: true,
 				dead_code: true,
@@ -228,7 +230,12 @@ if (PRODUCTION) {
 			},
 			mangle: {
 				screw_ie8: true,
-			}
+				keep_fnames: true,
+			},
+			output: {
+				comments: false,
+				screw_ie8: true
+			},
 		})
 	);
 }
