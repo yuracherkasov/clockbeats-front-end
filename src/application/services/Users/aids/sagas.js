@@ -16,6 +16,8 @@ import {
 	usersListRequestFailedAction,
 	usersFollowRequestSucceededAction,
 	usersFollowRequestFailedAction,
+	usersUnfollowRequestSucceededAction,
+	usersUnfollowRequestFailedAction,
 } from './actions';
 
 import {AUTH} from '../../Auth/aids/actions';
@@ -50,7 +52,7 @@ function* list() {
 }
 
 function* follow() {
-	const channel = yield actionChannel(USERS.FOLLOW_REQUEST);
+	const channel = yield actionChannel(USERS.FOLLOW_REQUESTED);
 
 	while (true) {
 		const {payload} = yield take(channel);
@@ -61,6 +63,21 @@ function* follow() {
 		};
 
 		yield call(_call, Users.follow.bind(null, payload.user), actions);
+	}
+}
+
+function* unfollow() {
+	const channel = yield actionChannel(USERS.UNFOLLOW_REQUESTED);
+
+	while (true) {
+		const {payload} = yield take(channel);
+
+		const actions = {
+			resolve: usersUnfollowRequestSucceededAction,
+			reject: usersUnfollowRequestFailedAction,
+		};
+
+		yield call(_call, Users.unfollow.bind(null, payload.user), actions);
 	}
 }
 
@@ -77,7 +94,7 @@ function* flow() {
 
 	while (true) {
 		yield take(connect);
-		const tasks = yield all([fork(follow), fork(list)]);
+		const tasks = yield all([fork(follow), fork(unfollow), fork(list)]);
 		yield put(usersListRequestAction());
 
 		yield take(disconnect);

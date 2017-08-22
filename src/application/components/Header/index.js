@@ -7,9 +7,11 @@ import {
 	withRouter
 } from 'react-router-dom';
 
+import {createSelector} from 'reselect';
+
 import {signOutRequestAction} from '../../services/Auth/aids/actions';
 
-function Header({user, signOut}) {
+function Header({user, signOut, commonNotifications}) {
 	return (
 		<header className="page-header">
 			<nav className="navigation navigation-head">
@@ -49,6 +51,7 @@ function Header({user, signOut}) {
 									</div>
 									<div className="mr-3 text-muted" style={{cursor: 'pointer'}}>
 										<i className="fa fa-bell fa-fw fa-lg" aria-hidden="true" />
+										<span>{commonNotifications}</span>
 									</div>
 
 									<div className="ml-3 mr-3 text-muted" style={{cursor: 'pointer'}} onClick={() => signOut()}>
@@ -75,7 +78,23 @@ Header.propTypes = {
 	user: PropTypes.object.isRequired,
 };
 
+const commonNotifications = createSelector(
+	state => state.notifications,
+	(notifications) => {
+		const count = notifications
+			.filter(notification => notification.type === 'common')
+			.filter(notification => !notification.pristine)
+			.length;
+
+		return count;
+	}
+);
+
 export default withRouter(connect(
-	state => ({user: state.user, online: state.socket.online}),
+	state => ({
+		user: state.user,
+		online: state.socket.online,
+		commonNotifications: commonNotifications(state),
+	}),
 	dispatch => ({signOut: () => dispatch(signOutRequestAction())}),
 )(Header));

@@ -6,6 +6,7 @@ export const SOCKET_USER = {
 	FRIENDS_ONLINE: 'SOCKET_FRIENDS_ONLINE',
 	NOTIFICATION: 'SOCKET_NOTIFICATION',
 	CHAT_MESSAGE: 'SOCKET_CHAT_MESSAGE',
+	FOLLOWERS_UPDATED: 'SOCKET_FOLLOWERS_UPDATED',
 };
 
 export function socketSubscribeSucceededAction(friends) {
@@ -30,4 +31,8 @@ export function socketNotificationAction(notification) {
 
 export function socketChatMessageAction(message) {
 	return {type: SOCKET_USER.CHAT_MESSAGE, payload: {message}};
+}
+
+export function socketFollowersUpdatedAction({followers, following}) {
+	return {type: SOCKET_USER.FOLLOWERS_UPDATED, payload: {followers, following}};
 }

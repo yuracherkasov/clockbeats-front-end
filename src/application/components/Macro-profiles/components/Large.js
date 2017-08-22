@@ -13,11 +13,12 @@ export default class LargeMacroProfile extends PureComponent {
 					</figure>
 				</div>
 				<div className="d-flex flex-row align-items-center justify-content-between">
-					<div className="macro-username">
-						<Link to={`/${user.username}`}>{user.name || user.username}</Link>
-					</div>
+					<Link to={`/${user.username}`} className="macro-username" >{user.name || user.username}</Link>
 
-					{online ? <span className="text-success ml-3">online</span> : <span className="text-muted ml-3">offline</span>}
+					{online
+						? <span className="text-success ml-3">online</span>
+						: <span className="text-muted ml-3">offline</span>
+					}
 				</div>
 
 				<div className="macro-description text-muted">

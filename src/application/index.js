@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
+import history from './history';
 import registerServiceWorker from './register-service-worker';
 
 import 'assets/sass/style.scss';
@@ -22,9 +23,9 @@ const store = createStore({});
 const render = Component =>
 	ReactDOM.render(
 		<Provider store={store}>
-			<BrowserRouter>
+			<Router history={history}>
 				<Component />
-			</BrowserRouter>
+			</Router>
 		</Provider>,
 		document.getElementById('root')
 	);

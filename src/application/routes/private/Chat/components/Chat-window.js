@@ -6,18 +6,28 @@ export default class ChatWindowContainer extends Component {
 	}
 
 	render() {
+		const {messages} = this.props;
 
 		return (
 			<div className="chat-messages">
 				<div className="chat-messages-wrapper">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque dolorum facilis fuga hic illum iusto labore magnam maxime minus molestiae nihil, nostrum, officia omnis porro praesentium quaerat quasi rerum voluptatum.</p>
+					{/*{messages.map(message => <p>{message.body}</p>)}*/}
+
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet autem debitis distinctio eius esse explicabo incidunt laboriosam modi natus officiis, optio quos reiciendis rem saepe sapiente sint unde voluptatibus.</p>
 				</div>
 			</div>
 		);

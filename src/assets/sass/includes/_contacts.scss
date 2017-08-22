@@ -14,6 +14,14 @@
 				background-color: transparentize(black, .9);
 			}
 
+			a {
+				&.active {
+					display: block;
+					transition: all .2s ease-in-out;
+					background-color: transparentize(black, .9);
+				}
+			}
+
 			i {
 				font-size: $font-size-h5;
 			}

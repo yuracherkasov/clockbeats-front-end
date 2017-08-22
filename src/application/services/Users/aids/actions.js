@@ -1,11 +1,15 @@
 export const USERS = {
-	LIST_REQUESTED: 'LIST_REQUESTED',
-	LIST_REQUEST_SUCCEEDED: 'LIST_REQUEST_SUCCEEDED',
-	LIST_REQUEST_FAILED: 'LIST_REQUESTED_FAILED',
+	LIST_REQUESTED: 'USERS_LIST_REQUESTED',
+	LIST_REQUEST_SUCCEEDED: 'USERS_LIST_REQUEST_SUCCEEDED',
+	LIST_REQUEST_FAILED: 'USERS_LIST_REQUEST_FAILED',
 
-	FOLLOW_REQUEST: 'FOLLOW_REQUEST',
+	FOLLOW_REQUESTED: 'FOLLOW_REQUESTED',
 	FOLLOW_REQUEST_SUCCEEDED: 'FOLLOW_REQUEST_SUCCEEDED',
 	FOLLOW_REQUEST_FAILED: 'FOLLOW_REQUEST_FAILED',
+
+	UNFOLLOW_REQUESTED: 'UNFOLLOW_REQUESTED',
+	UNFOLLOW_REQUEST_SUCCEEDED: 'UNFOLLOW_REQUEST_SUCCEEDED',
+	UNFOLLOW_REQUEST_FAILED: 'UNFOLLOW_REQUEST_FAILED',
 };
 
 export function usersListRequestAction() {
@@ -21,7 +25,7 @@ export function usersListRequestFailedAction(error) {
 }
 
 export function usersFollowRequestAction(user) {
-	return {type: USERS.FOLLOW_REQUEST, payload: {user}};
+	return {type: USERS.FOLLOW_REQUESTED, payload: {user}};
 }
 
 export function usersFollowRequestSucceededAction({user}) {
@@ -30,4 +34,16 @@ export function usersFollowRequestSucceededAction({user}) {
 
 export function usersFollowRequestFailedAction(error) {
 	return {type: USERS.FOLLOW_REQUEST_FAILED, payload: {error}};
+}
+
+export function usersUnfollowRequestAction(user) {
+	return {type: USERS.UNFOLLOW_REQUESTED, payload: {user}};
+}
+
+export function usersUnfollowRequestSucceededAction({user}) {
+	return {type: USERS.UNFOLLOW_REQUEST_SUCCEEDED, payload: {user}};
+}
+
+export function usersUnfollowRequestFailedAction(error) {
+	return {type: USERS.UNFOLLOW_REQUEST_FAILED, payload: {error}};
 }

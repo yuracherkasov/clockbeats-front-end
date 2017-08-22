@@ -8,6 +8,10 @@ export function list() {
 	return Request.get('self/chats');
 }
 
+export function create(participants) {
+	return Request.post('self/chats', {participants});
+}
+
 // TODO: should call to DB with `skip` and DB should return `count of left messages`
 export function messages(id, skip) {
 	return Request.get(`self/chats/${id}/messages?${skip}`);

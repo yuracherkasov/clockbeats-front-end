@@ -47,17 +47,20 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+	}
 
-		a {
-			color: transparentize($gray-dark, .3);
-			font-size: $font-size-h6;
-			font-weight: bold;
+	&-username {
+		color: transparentize($gray-dark, .3);
+		font-size: $font-size-h6;
+		font-weight: bold;
 
-			&:hover {
-				color: $gray-dark;
-			}
+		&:hover {
+			color: $gray-dark;
 		}
 	}
 
-	&-description {}
+	&-description {
+		color: transparentize($gray-dark, .3);
+		font-weight: normal;
+	}
 }

@@ -17,6 +17,7 @@ import {
 	socketFriendsOnlineAction,
 	socketNotificationAction,
 	socketChatMessageAction,
+	socketFollowersUpdatedAction,
 } from './actions';
 import {SOCKET_CONNECTION} from '../connection/actions';
 
@@ -33,6 +34,8 @@ function subscription() {
 		Socket.socket.on('notification', notification => emit(socketNotificationAction(notification)));
 
 		Socket.socket.on('chat_message', message => emit(socketChatMessageAction(message)));
+
+		Socket.socket.on('followers_updated', contacts => emit(socketFollowersUpdatedAction(contacts)));
 
 		return Socket.unsubscribe;
 	});

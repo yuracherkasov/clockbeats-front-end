@@ -1,13 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-	NavLink,
-	Link,
-	Route,
-	Switch,
-	Redirect,
-	withRouter,
-} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 
 import Room from './components/Room';
 import Contacts from './components/Contacts';
@@ -17,34 +10,25 @@ class ChatContainer extends Component {
 		super(props);
 	}
 
-	// TODO: create tabs component
 	render() {
 		const {match} = this.props;
 
 		return (
 			<div className="chat panel">
-				<div className="container">
-					<div className="chat-wrapper">
+				<div style={{backgroundColor: 'white'}}>
+					<div className="container-fluid">
+						<div className="row">
+							<div className="col-md-3 p-0">
+								<div className="chat-contacts">
+									<div className="chat-contacts-wrapper">
+										<Route path={`${match.path}`} component={Contacts} />
+									</div>
+								</div>
+							</div>
 
-						<div className="tabs panel">
-							<ul className="d-flex justify-content-start align-items-center">
-								<li className="tab-item">
-									<NavLink to={`${match.path}/johnsnow`}>John Snow</NavLink>
-								</li>
-								<li className="tab-item">
-									<NavLink to={`${match.path}/serhiiyaitsky`}>Serhii Yaitsky</NavLink>
-								</li>
-								<li className="ml-auto tab-item">
-									<NavLink exact to={`${match.path}`}>Contacts</NavLink>
-								</li>
-							</ul>
-						</div>
-
-						<div className="chat-window">
-							<Switch>
-								<Route exact path={`${match.path}`} component={Contacts} />
+							<div className="col-md-9 p-0">
 								<Route path={`${match.path}/:room`} component={Room} />
-							</Switch>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -53,7 +37,4 @@ class ChatContainer extends Component {
 	}
 }
 
-export default withRouter(connect(
-	null,
-	null,
-)(ChatContainer));
+export default withRouter(connect(null, null)(ChatContainer));

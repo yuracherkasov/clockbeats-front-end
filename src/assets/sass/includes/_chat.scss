@@ -8,22 +8,33 @@
 	}
 
 	&-window {
-		height: calc(100vh - 160px);
 		overflow: auto;
 	}
 
-	&-room {
-		height: 100%;
+	&-room,
+	&-contacts {
+		height: calc(100vh - 121px);
 		overflow: hidden;
+
+		&-wrapper {
+			height: 100%;
+			overflow: auto;
+		}
+	}
+
+	&-contacts {
+		border-right: 1px solid rgba(242, 242, 242, 0.9);
 	}
 
 	&-messages {
 		height: calc(100% - 64px);
-		overflow: auto;
+		overflow: hidden;
+		padding: 20px 0 0;
 
 		&-wrapper {
 			height: 100%;
-			padding: 20px;
+			padding: 0 16px;
+			overflow: auto;
 		}
 	}
 

@@ -1,16 +1,36 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+
+import Loader from '../../../../components/Loading';
 import ChatWindow from './Chat-window';
 
-export default class ChatWindowContainer extends Component {
+import {createSelector} from 'reselect';
+import {roomsSelector} from '../selectors';
+import head from 'lodash/head';
+
+class ChatWindowContainer extends Component {
 	constructor(props) {
 		super(props);
 	}
 
+	state = {
+		loading: false,
+	};
+
 	render() {
+		const {loading} = this.state;
+		const {room} = this.props;
+
+		if (!room) {
+			return <Redirect to={`/you/chat`} />
+		}
 
 		return (
 			<div className="chat-room">
-				<ChatWindow messages={[]} />
+
+				{loading ? <Loader /> : <ChatWindow messages={room.messages} />}
+
 				<div className="chat-typo">
 					<div className="form-group">
 						<textarea className="form-control form-control-lg" placeholder="Wright your message..." rows={1} />
@@ -23,3 +43,18 @@ export default class ChatWindowContainer extends Component {
 		);
 	}
 }
+
+const selectRoom = createSelector(
+	(state, props) => props.match.params.room,
+	roomsSelector,
+	(roomId, rooms) => head(rooms.filter(room => room.id === roomId)),
+);
+
+const mapStateToProps = (state, props) => ({
+	room: selectRoom(state, props),
+});
+
+export default connect(
+	mapStateToProps,
+	null,
+)(ChatWindowContainer);

@@ -10,16 +10,14 @@ class ProfileScene extends Component {
 		const {match} = this.props;
 		const {profile} = match.params;
 
-		if (profile && profile !== 'paolomantini') {
-			return (
-				<div>
-					Sorry, but user <b>{profile}</b> not found. <Link to='/sign-in'>Sign In. ASAP!</Link>
-				</div>
-			);
-		}
-
 		return (
-			<div>Hi, <b>{profile}</b>. Here should be your public profile</div>
+			<div className="container">
+				<div className="row">
+					<div className="col">
+						<div className="pt-5 text-center">Hi, <b>{profile}</b>. Here should be your public profile</div>
+					</div>
+				</div>
+			</div>
 		);
 	}
 
