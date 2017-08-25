@@ -14,8 +14,10 @@ import {
 	socketSubscribeSucceededAction,
 	socketSubscribeFailedAction,
 	socketSubscribeErrorAction,
-	socketFriendsOnlineAction,
+	socketUsersOnlineAction,
 	socketNotificationAction,
+	socketChatJoin,
+	socketChatLeave,
 	socketChatMessageAction,
 	socketFollowersUpdatedAction,
 } from './actions';
@@ -29,9 +31,13 @@ function subscription() {
 
 		Socket.socket.on('subscribe_error', error => emit(socketSubscribeErrorAction(error.message)));
 
-		Socket.socket.on('friends_online', users => emit(socketFriendsOnlineAction(users)));
+		Socket.socket.on('online', users => emit(socketUsersOnlineAction(users)));
 
 		Socket.socket.on('notification', notification => emit(socketNotificationAction(notification)));
+
+		Socket.socket.on('chat_join', chat => emit(socketChatJoin(chat)));
+
+		Socket.socket.on('chat_leave', chat => emit(socketChatLeave(chat)));
 
 		Socket.socket.on('chat_message', message => emit(socketChatMessageAction(message)));
 

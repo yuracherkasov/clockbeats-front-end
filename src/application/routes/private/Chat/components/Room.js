@@ -9,6 +9,8 @@ import {createSelector} from 'reselect';
 import {roomsSelector} from '../selectors';
 import head from 'lodash/head';
 
+import {chatSendMessageRequestAction} from '../../../../services/Chat/aids/actions';
+
 class ChatWindowContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -16,10 +18,36 @@ class ChatWindowContainer extends Component {
 
 	state = {
 		loading: false,
+		message: '',
+
+		messages: [],
+	};
+
+	sendHandler = event => {
+		const enter = event.keyCode === 13;
+
+		if (enter) {
+			event.preventDefault();
+			const message = event.target.value;
+			this.send(message);
+		}
+	};
+
+	send = body => {
+		const {room, user, sendMessage} = this.props;
+		const message = {
+			room: room.id,
+			issuer: user.id,
+			body,
+		};
+
+		sendMessage(message);
+
+		this.setState(state => ({message: ''}));
 	};
 
 	render() {
-		const {loading} = this.state;
+		const {loading, message} = this.state;
 		const {room} = this.props;
 
 		if (!room) {
@@ -29,11 +57,18 @@ class ChatWindowContainer extends Component {
 		return (
 			<div className="chat-room">
 
-				{loading ? <Loader /> : <ChatWindow messages={room.messages} />}
+				{loading ? <Loader /> : <ChatWindow room={room} />}
 
 				<div className="chat-typo">
 					<div className="form-group">
-						<textarea className="form-control form-control-lg" placeholder="Wright your message..." rows={1} />
+						<textarea
+							onKeyDown={this.sendHandler}
+							onChange={event => this.setState({message: event.target.value})}
+							className="form-control form-control-lg"
+							placeholder="Wright your message..."
+							rows={1}
+							value={message}
+						/>
 					</div>
 					<span className="d-inline-block">
 						<i className="fa fa-smile-o fa-fw fa-3x text-muted" />
@@ -51,10 +86,18 @@ const selectRoom = createSelector(
 );
 
 const mapStateToProps = (state, props) => ({
+	user: state.user,
 	room: selectRoom(state, props),
+});
+
+const mapDispatchToProps = dispatch => ({
+	sendMessage: ({room, issuer, body}) => dispatch(chatSendMessageRequestAction({room, issuer, body})),
+
+	// editMessage: (roomId, messageId, message) => dispatch(() => {}),
+	// removeMessage: (roomId, messageId) => dispatch(() => {}),
 });
 
 export default connect(
 	mapStateToProps,
-	null,
+	mapDispatchToProps,
 )(ChatWindowContainer);

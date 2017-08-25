@@ -3,14 +3,17 @@ export const SOCKET_USER = {
 	SUBSCRIBE_FAILED: 'SOCKET_SUBSCRIBE_FAILED',
 	SUBSCRIBE_ERROR: 'SOCKET_SUBSCRIBE_ERROR',
 
-	FRIENDS_ONLINE: 'SOCKET_FRIENDS_ONLINE',
+	USERS_ONLINE: 'SOCKET_USERS_ONLINE',
 	NOTIFICATION: 'SOCKET_NOTIFICATION',
+	CHAT_JOIN: 'SOCKET_CHAT_JOIN',
+	CHAT_LEAVE: 'SOCKET_CHAT_LEAVE',
 	CHAT_MESSAGE: 'SOCKET_CHAT_MESSAGE',
 	FOLLOWERS_UPDATED: 'SOCKET_FOLLOWERS_UPDATED',
 };
 
-export function socketSubscribeSucceededAction(friends) {
-	return {type: SOCKET_USER.SUBSCRIBE_SUCCEEDED, payload: {friends}};
+/* SUBSCRIPTION */
+export function socketSubscribeSucceededAction(online) {
+	return {type: SOCKET_USER.SUBSCRIBE_SUCCEEDED, payload: {online}};
 }
 
 export function socketSubscribeFailedAction(error) {
@@ -21,18 +24,30 @@ export function socketSubscribeErrorAction(error) {
 	return {type: SOCKET_USER.SUBSCRIBE_ERROR, payload: {error}};
 }
 
-export function socketFriendsOnlineAction(friends) {
-	return {type: SOCKET_USER.FRIENDS_ONLINE, payload: {friends}};
+/* USERS ONLINE */
+export function socketUsersOnlineAction(online) {
+	return {type: SOCKET_USER.USERS_ONLINE, payload: {online}};
 }
 
+/* NOTIFICATIONS */
 export function socketNotificationAction(notification) {
 	return {type: SOCKET_USER.NOTIFICATION, payload: {notification}};
 }
 
-export function socketChatMessageAction(message) {
-	return {type: SOCKET_USER.CHAT_MESSAGE, payload: {message}};
+/* CHAT */
+export function socketChatJoin(chat) {
+	return {type: SOCKET_USER.CHAT_JOIN, payload: {chat}};
 }
 
+export function socketChatLeave(chat) {
+	return {type: SOCKET_USER.CHAT_LEAVE, payload: {chat}};
+}
+
+export function socketChatMessageAction({room, message}) {
+	return {type: SOCKET_USER.CHAT_MESSAGE, payload: {room, message}};
+}
+
+/* CONTACTS */
 export function socketFollowersUpdatedAction({followers, following}) {
 	return {type: SOCKET_USER.FOLLOWERS_UPDATED, payload: {followers, following}};
 }

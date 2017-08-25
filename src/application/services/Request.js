@@ -62,6 +62,6 @@ class Requests {
 
 }
 
-const HOST = process.env.NODE_ENV === 'production' ? 'https://api.clockbeats.com' : 'http://127.0.0.1:8095';
+const HOST = process.env.NODE_ENV === 'production' ? 'http://188.166.28.121:81' : 'http://127.0.0.1:8095';
 
 export default new Requests(HOST);

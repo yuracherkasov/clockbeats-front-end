@@ -17,8 +17,8 @@ export function messages(id, skip) {
 	return Request.get(`self/chats/${id}/messages?${skip}`);
 }
 
-export function createMessage(chatId, {text}) {
-	return Request.post(`self/chats/${chatId}/messages`, {text});
+export function createMessage({room, issuer, body}) {
+	return Request.post(`self/chats/${room}/messages`, {issuer, body});
 }
 
 export function updateMessage(chatId, {id, text, persist = true, remove = false}) {

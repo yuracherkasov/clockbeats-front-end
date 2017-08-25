@@ -20,6 +20,9 @@ import {
 	chatCrateRequestFailedAction,
 	chatRequestSucceededAction,
 	chatRequestFailedAction,
+	chatSendMessageRequestSucceededAction,
+	chatSendMessageRequestFailedAction,
+	chatMessageReceivedRequestAction, chatJoin, chatLeave,
 } from './actions';
 
 import {AUTH} from '../../Auth/aids/actions';
@@ -88,6 +91,45 @@ function* specific() {
 	}
 }
 
+function* join() {
+	const channel = yield actionChannel(SOCKET_USER.CHAT_JOIN);
+
+	while(true) {
+		const {payload: {chat}} = yield take(channel);
+		yield put(chatJoin(chat));
+	}
+}
+function* leave() {
+	const channel = yield actionChannel(SOCKET_USER.CHAT_LEAVE);
+
+	while(true) {
+		const {payload: {chat}} = yield take(channel);
+		yield put(chatLeave(chat));
+	}
+}
+
+function* sendMessage() {
+	const channel = yield actionChannel(CHAT.SEND_MESSAGE_REQUESTED);
+	const actions = {
+		resolve: chatSendMessageRequestSucceededAction,
+		reject: chatSendMessageRequestFailedAction,
+	};
+
+	while (true) {
+		const {payload} = yield take(channel);
+		yield call(_call, Chat.createMessage.bind(null, {...payload}), actions);
+	}
+}
+
+function* receiveMessage() {
+	const channel = yield actionChannel(SOCKET_USER.CHAT_MESSAGE);
+
+	while (true) {
+		const {payload} = yield take(channel);
+		yield put(chatMessageReceivedRequestAction(payload));
+	}
+}
+
 function* read() {
 	const channel = yield actionChannel(USER.SELF_REQUEST_SUCCEEDED);
 
@@ -95,9 +137,13 @@ function* read() {
 		yield take(channel);
 		yield all([
 			fork(list),
+			fork(join),
+			fork(leave),
 			fork(create),
 			fork(redirect),
 			fork(specific),
+			fork(sendMessage),
+			fork(receiveMessage),
 		]);
 
 		yield put(chatListRequestAction());

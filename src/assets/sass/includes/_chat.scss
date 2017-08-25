@@ -35,6 +35,24 @@
 			height: 100%;
 			padding: 0 16px;
 			overflow: auto;
+			position: relative;
+		}
+
+		&-offset {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		.message-wrapper {
+			position: relative;
+			border: 1px solid rgba(242, 242, 242, 0.9);
+
+			&.selected {
+				background-color: rgba(242, 242, 242, 0.5);
+			}
 		}
 	}
 

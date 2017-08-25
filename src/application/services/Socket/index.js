@@ -1,8 +1,10 @@
 import IO from 'socket.io-client';
 
+const HOST = process.env.NODE_ENV === 'production' ? 'http://188.166.28.121:81' : 'http://127.0.0.1:8095';
+
 // TODO: Create /config.js
 const CONFIG = {
-	uri: 'http://127.0.0.1:8095',
+	uri: HOST,
 	options: {
 		forceNew: false,
 		autoConnect: false,

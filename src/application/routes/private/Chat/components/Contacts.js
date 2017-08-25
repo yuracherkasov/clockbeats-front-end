@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import {roomsSelector} from '../selectors';
 
+import last from 'lodash/last';
+
 class ContactsContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -25,16 +27,20 @@ class ContactsContainer extends Component {
 												<img src="https://semantic-ui.com/images/wireframe/square-image.png" alt="Avatar" />
 											</figure>
 
-											{room.participants.map(participant => (
-												<div key={participant.id} className="h1 m-0 macro-username">
-													<span className="mr-1">{participant.name}</span>
+											{room.participants.map(participant => {
+												const message = last(room.messages);
+												return (
+													<div key={participant.id} className="h1 m-0 macro-username">
+														<span className="mr-1">{participant.name}</span>
 
-													{participant.online
-														? <small className="text-success font-weight-normal">online</small>
-														: <small className="text-muted font-weight-normal">offline</small>
-													}
-												</div>
-											))}
+														{participant.online
+															? <small className="text-success font-weight-normal">online</small>
+															: <small className="text-muted font-weight-normal">offline</small>
+														}
+														<p className="text-muted font-weight-normal" style={{fontSize: 12}}>{message && message.body}</p>
+													</div>
+												);
+											})}
 
 										</div>
 									</NavLink>

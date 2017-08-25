@@ -10,6 +10,15 @@ export const CHAT = {
 	CREATE_REQUESTED: 'CHAT_CREATE_REQUESTED',
 	CREATE_REQUEST_SUCCEEDED: 'CHAT_CREATE_REQUEST_SUCCEEDED',
 	CREATE_REQUEST_FAILED: 'CHAT_CREATE_REQUEST_FAILED',
+
+	JOIN: 'CHAT_JOIN',
+	LEAVE: 'CHAT_LEAVE',
+
+	SEND_MESSAGE_REQUESTED: 'CHAT_SEND_MESSAGE_REQUESTED',
+	SEND_MESSAGE_REQUEST_SUCCEEDED: 'CHAT_SEND_MESSAGE_REQUEST_SUCCEEDED',
+	SEND_MESSAGE_REQUEST_FAILED: 'CHAT_SEND_MESSAGE_REQUEST_FAILED',
+
+	MESSAGE_RECEIVED: 'CHAT_MESSAGE_RECEIVED',
 };
 
 /* SPECIFIC */
@@ -49,4 +58,32 @@ export function chatCrateRequestSucceededAction({chat}) {
 
 export function chatCrateRequestFailedAction(error) {
 	return {type: CHAT.CREATE_REQUEST_FAILED, payload: {error}};
+}
+
+/* JOIN */
+export function chatJoin(chat) {
+	return {type: CHAT.JOIN, payload: {chat}};
+}
+
+/* LEAVE */
+export function chatLeave(chat) {
+	return {type: CHAT.LEAVE, payload: {chat}};
+}
+
+/* SEND MESSAGE */
+export function chatSendMessageRequestAction({room, issuer, body}) {
+	return {type: CHAT.SEND_MESSAGE_REQUESTED, payload: {room, issuer, body}};
+}
+
+export function chatSendMessageRequestSucceededAction({room, message}) {
+	return {type: CHAT.SEND_MESSAGE_REQUEST_SUCCEEDED, payload: {room, message}};
+}
+
+export function chatSendMessageRequestFailedAction(error) {
+	return {type: CHAT.SEND_MESSAGE_REQUEST_FAILED, payload: {error}};
+}
+
+/* RECEIVE MESSAGE */
+export function chatMessageReceivedRequestAction({room, message}) {
+	return {type: CHAT.MESSAGE_RECEIVED, payload: {room, message}};
 }

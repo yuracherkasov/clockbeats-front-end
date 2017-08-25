@@ -11,7 +11,7 @@ import {createSelector} from 'reselect';
 
 import {signOutRequestAction} from '../../services/Auth/aids/actions';
 
-function Header({user, signOut, commonNotifications}) {
+function Header({user, signOut, commonNotifications, chatNotifications}) {
 	return (
 		<header className="page-header">
 			<nav className="navigation navigation-head">
@@ -42,6 +42,7 @@ function Header({user, signOut, commonNotifications}) {
 									<div className="mr-3" style={{cursor: 'pointer'}}>
 										<Link className="text-muted" to="/you/chat">
 											<i className="fa fa-inbox fa-fw fa-lg" aria-hidden="true" />
+											<span>{chatNotifications}</span>
 										</Link>
 									</div>
 									<div className="mr-3" style={{cursor: 'pointer'}}>
@@ -81,13 +82,20 @@ Header.propTypes = {
 const commonNotifications = createSelector(
 	state => state.notifications,
 	(notifications) => {
-		const count = notifications
-			.filter(notification => notification.type === 'common')
-			.filter(notification => !notification.pristine)
-			.length;
-
-		return count;
+		return notifications
+			.filter(notification =>
+				notification.type === 'common' && notification.pristine).length;
 	}
+);
+
+const chatNotifications = createSelector(
+	state => state.user.id,
+	state => state.chats,
+	(user, chats) =>
+		chats.map(chat =>
+			chat.messages.filter(message =>
+				message.pristine && message.issuer !== user).length)
+			.reduce((current, next) => current + next, 0)
 );
 
 export default withRouter(connect(
@@ -95,6 +103,7 @@ export default withRouter(connect(
 		user: state.user,
 		online: state.socket.online,
 		commonNotifications: commonNotifications(state),
+		chatNotifications: chatNotifications(state),
 	}),
 	dispatch => ({signOut: () => dispatch(signOutRequestAction())}),
 )(Header));

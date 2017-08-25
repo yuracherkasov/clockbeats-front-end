@@ -1,4 +1,5 @@
 import {CHAT} from './actions';
+import head from 'lodash/head';
 
 const initial = [];
 
@@ -9,10 +10,35 @@ export default (state = initial, {type, payload}) => {
 			return [...payload.chats];
 		}
 
-		case CHAT.CREATE_REQUEST_SUCCEEDED: {
+		case CHAT.JOIN: {
 			return [
-				...state,
 				payload.chat,
+				...state,
+			];
+		}
+
+		case CHAT.LEAVE: {
+			return state.filter(chat => chat.id !== payload.chat.id);
+		}
+
+		case CHAT.MESSAGE_RECEIVED:
+		case CHAT.SEND_MESSAGE_REQUEST_SUCCEEDED: {
+			const {room, message} = payload;
+			const selected = [];
+			const rooms = state.filter(chat => {
+				if (chat.id === room) {
+					selected.push(chat);
+					return false;
+				}
+				return true;
+			});
+
+			const updated = head(selected);
+			const {messages} = updated;
+
+			return [
+				{...updated, messages: [...messages, message]},
+				...rooms,
 			];
 		}
 
