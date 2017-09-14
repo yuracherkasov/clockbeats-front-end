@@ -1,6 +1,6 @@
 .content {
 	width: calc(100vw - #{$drawer-width});
-	height: calc(100vh - #{$main-header-height});
+	height: calc(100vh - (#{$main-header-height} + 61px));
 	margin-left: $drawer-width;
 	overflow: hidden;
 
