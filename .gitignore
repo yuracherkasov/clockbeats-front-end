@@ -1,3 +1,7 @@
 .idea
 node_modules
 dist
+src/assets/sass_bulma
+src/assets/sass_prev
+
+src/application/routes/private/Workspace/components_old

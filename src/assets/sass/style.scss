@@ -1,86 +1,13 @@
 @import "imports";
 
-::selection {
-	background: #b3d4fc;
-	text-shadow: none;
-}
-
-html,
-body {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-figure {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-}
-
-img {
-	width: 100%;
-	height: auto;
-}
-
-hr {
-	display: block;
-	height: 1px;
-	border: 0;
-	border-top: 1px solid #ccc;
-	margin: 1em 0;
-	padding: 0;
-}
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-	vertical-align: middle;
-}
-
-a {
-	&,
-	&:active,
-	&:hover,
-	&:focus,
-	&:visited {
-		text-decoration: none;
-	}
-}
-
-ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	text-decoration: none;
-
-	li {
-		display: block;
-	}
-}
-
-fieldset {
-	border: 0;
-	margin: 0;
-	padding: 0;
-}
-
-textarea {
-	resize: vertical;
-}
-
 /* ==========================================================================
    Browser Upgrade Prompt
    -------------------------------------------------------------------------- */
 
 .browserupgrade {
 	margin: 0.2em 0;
-	background: #ccc;
-	color: #000;
+	background: $color-gray-lighten;
+	color: $color-dark;
 	padding: 0.2em 0;
 }
 
@@ -88,118 +15,140 @@ textarea {
    Author's custom styles
    -------------------------------------------------------------------------- */
 
+html,
+body,
 #root,
-[data-reactroot] {
-	height: inherit;
+.clockbeats {
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
-[data-reactroot] {
-	padding-top: 61px;
-
-	&.with-background {
-		background: url('/assets/images/cb_login.jpg') no-repeat center;
-		background-size: cover;
-	}
-}
-
-.logo {
-	width: 140px;
+.clockbeats {
+	padding-top: rem($main-header-height);
 }
 
 .main-content {
-	height: calc(100vh - 81px);
-}
+	height: calc(100vh - #{$main-header-height});
+	display: flex;
+	justify-content: center;
 
-.content {
-	width: calc(100vw - 290px);
-	height: inherit;
-	overflow: hidden;
-	margin-left: auto;
-	background-color: rgba(242,242,242,.9);
-
-	&-wrapper {
+	.public & {
 		height: inherit;
-		overflow: auto;
-		position: relative;
+		overflow-y: auto;
+		will-change: transform;
 	}
 }
 
-.sign-container {
-	padding-top: 60px;
+.scenes {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: stretch;
+	padding: 0 16px;
+	height: calc(100vh - #{$main-header-height});
+
+	&--header {}
 }
 
-.sign-form {
-	border: 1px solid #eee;
-	padding: 110px 30px;
-	background-color: transparentize($white, .1);
-	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+// TODO: move to some component or diff file with style
+.meta {
+	color: $color-gray-light;
+	font-size: rem(12px);
+	font-weight: 400;
+	line-height: 1;
+
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: baseline;
+
+	&--item {
+		&:not(:last-child) {
+			margin-right: rem(2px);
+		}
+
+		&__medium {
+			font-size: rem(14px);
+			margin-right: rem(4px);
+		}
+	}
 }
 
-footer {
-	background-color: transparentize($white, .1);
+.text-muted {
+	color: $color-gray-light;
 }
 
-#page-loader {
+.pull {
+	&-right {
+		margin-right: auto;
+	}
+
+	&-left {
+		margin-left: auto;
+	}
+}
+
+.text {
+	&-small {
+		font-size: rem(12px);
+	}
+
+	&-medium {
+		font-size: rem(14px);
+	}
+
+	&-base {
+		font-size: rem(16px);
+	}
+
+	&-huge {
+		font-size: rem(21px);
+	}
+}
+
+.borderless {
+	border: none;
+}
+
+.overlapping {
+	&:after {
+		content: ' ';
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		height: 25px;
+		width: 100%;
+		background: $color-white;
+		background: linear-gradient(rgba($color-dark, 0), $color-white);
+	}
+}
+
+.ReactModalPortal {
 	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-color: #fff;
-	z-index: 999998
-}
+	z-index: 20;
 
-#page-loader:after {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	display: block;
-	margin-top: -30px;
-	margin-left: -30px;
-	width: 60px;
-	height: 60px;
-	background-color: #5c90d2;
-	border-radius: 100%;
-	content: '';
-	z-index: 999999;
-	-webkit-animation: page-loader .9s infinite ease-in-out;
-	animation: page-loader .9s infinite ease-in-out
-}
+	.modal {
+		&__overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba($color-gray-light, .6);
+		}
 
-.ie9 #page-loader:after {
-	text-align: center;
-	content: 'Loading..';
-	background-color: transparent
-}
-
-@-webkit-keyframes page-loader {
-	0% {
-		-webkit-transform: scale(0);
-		transform: scale(0)
-	}
-
-	100% {
-		-webkit-transform: scale(1);
-		transform: scale(1);
-		opacity: 0
+		&__content {
+			position: absolute;
+			top: 40px;
+			left: calc((50vw / 2));
+			width: calc(50vw);
+			min-height: 0;
+			box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+			background-color: rgba($color-dark, 1);
+			overflow: auto;
+			border-radius: 4px;
+			outline: none;
+			padding: 20px;
+		}
 	}
 }
-
-@keyframes page-loader {
-	0% {
-		-webkit-transform: scale(0);
-		transform: scale(0)
-	}
-
-	100% {
-		-webkit-transform: scale(1);
-		transform: scale(1);
-		opacity: 0
-	}
-}
-
-// TODO: add mixin for shadows
-//box-shadow:
-// 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
-// 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-// 0px 3px 1px -2px rgba(0, 0, 0, 0.12);

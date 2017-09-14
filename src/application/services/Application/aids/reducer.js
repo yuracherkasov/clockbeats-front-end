@@ -8,7 +8,10 @@ export default (state = initialState, {type, action}) => {
 	switch (type) {
 		case APP.INITIALIZED:
 		case APP.INITIALIZATION: {
-			return {initialization: !state.initialization};
+			return {
+				...state,
+				initialization: !state.initialization,
+			};
 		}
 
 		default: {

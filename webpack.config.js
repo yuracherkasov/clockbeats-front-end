@@ -127,6 +127,10 @@ config.plugins = [
 				precision: 10,
 				sourceComments: false,
 				sourceMap: PRODUCTION,
+			},
+			cssLoader: {
+				minimize: true,
+				sourceMap: true,
 			}
 		}
 	}),

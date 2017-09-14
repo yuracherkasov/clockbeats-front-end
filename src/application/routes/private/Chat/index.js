@@ -5,6 +5,14 @@ import {Route, withRouter} from 'react-router-dom';
 import Room from './components/Room';
 import Contacts from './components/Contacts';
 
+function SelectChatNotice() {
+	return (
+		<div className="chat--no-room">
+			<p className="chat--no-room__select-message">Please select a chat to start messaging</p>
+		</div>
+	);
+}
+
 class ChatContainer extends Component {
 	constructor(props) {
 		super(props);
@@ -14,22 +22,16 @@ class ChatContainer extends Component {
 		const {match} = this.props;
 
 		return (
-			<div className="chat panel">
-				<div style={{backgroundColor: 'white'}}>
-					<div className="container-fluid">
-						<div className="row">
-							<div className="col-md-3 p-0">
-								<div className="chat-contacts">
-									<div className="chat-contacts-wrapper">
-										<Route path={`${match.path}`} component={Contacts} />
-									</div>
-								</div>
-							</div>
+			<div className="chat">
 
-							<div className="col-md-9 p-0">
-								<Route path={`${match.path}/:room`} component={Room} />
-							</div>
-						</div>
+				<div className="chat--content">
+					<div className="chat--content--main">
+						<Route exact path={`${match.path}`} render={SelectChatNotice}/>
+						<Route path={`${match.path}/:room`} component={Room} />
+					</div>
+
+					<div className="chat--content--aside">
+						<Route path={`${match.path}`} component={Contacts} />
 					</div>
 				</div>
 			</div>
@@ -37,4 +39,4 @@ class ChatContainer extends Component {
 	}
 }
 
-export default withRouter(connect(null, null)(ChatContainer));
+export default withRouter(ChatContainer);

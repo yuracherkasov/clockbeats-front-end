@@ -1,0 +1,46 @@
+.icon {
+	min-width: 18px;
+	min-height: 18px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+}
+
+// TODO: create lined hamburger
+.hamburger {
+	width: 20px;
+	height: 30px;
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	vertical-align: middle;
+
+	&-dotted {
+		> span {
+			left: 8px;
+			width: 3px;
+			height: 3px;
+			display: block;
+			position: absolute;
+			background: $color-gray-lighten;
+			border-radius: 50%;
+			transition: all 0.1s ease-out;
+
+			// TODO: create animation on hover
+			&:nth-child(1) {
+				top: 8px;
+			//	6px;
+			}
+
+			&:nth-child(2) {
+				top: 14px;
+			}
+
+			&:nth-child(3) {
+				top: 20px;
+			//	22px;
+			}
+		}
+	}
+}

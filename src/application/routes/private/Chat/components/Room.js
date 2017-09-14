@@ -19,31 +19,31 @@ class ChatWindowContainer extends Component {
 	state = {
 		loading: false,
 		message: '',
-
-		messages: [],
 	};
 
 	sendHandler = event => {
 		const enter = event.keyCode === 13;
 
-		if (enter) {
+		if (enter || event.type === 'click') {
 			event.preventDefault();
-			const message = event.target.value;
-			this.send(message);
+
+			this.send();
 		}
 	};
 
-	send = body => {
+	send = () => {
+		const {message: value} = this.state;
 		const {room, user, sendMessage} = this.props;
 		const message = {
 			room: room.id,
 			issuer: user.id,
-			body,
+			body: value,
 		};
 
-		sendMessage(message);
-
-		this.setState(state => ({message: ''}));
+		if (value) {
+			sendMessage(message);
+			this.setState(state => ({message: ''}));
+		}
 	};
 
 	render() {
@@ -55,24 +55,37 @@ class ChatWindowContainer extends Component {
 		}
 
 		return (
-			<div className="chat-room">
+			<div className="chat--room-window">
 
 				{loading ? <Loader /> : <ChatWindow room={room} />}
 
-				<div className="chat-typo">
-					<div className="form-group">
+				<div className="chat--room-window--messages--bar">
+
+					<div className="chat--input-field">
 						<textarea
 							onKeyDown={this.sendHandler}
 							onChange={event => this.setState({message: event.target.value})}
-							className="form-control form-control-lg"
-							placeholder="Wright your message..."
+							className="form-control"
+							placeholder="Write a message..."
 							rows={1}
 							value={message}
 						/>
 					</div>
-					<span className="d-inline-block">
-						<i className="fa fa-smile-o fa-fw fa-3x text-muted" />
-					</span>
+					<div className="chat--send-button">
+						<button type="button" className="btn btn-icon" onClick={this.sendHandler}>
+							<span className="icon">
+								<i className="fa fa-paper-plane fa-lg" />
+							</span>
+						</button>
+					</div>
+
+					<div className="chat--smiles-toggle">
+						<button type="button" className="btn btn-icon">
+							<span className="icon">
+								<i className="fa fa-smile-o fa-2x" />
+							</span>
+						</button>
+					</div>
 				</div>
 			</div>
 		);

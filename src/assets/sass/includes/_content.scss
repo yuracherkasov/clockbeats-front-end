@@ -1,0 +1,16 @@
+.content {
+	width: calc(100vw - #{$drawer-width});
+	height: calc(100vh - #{$main-header-height});
+	margin-left: $drawer-width;
+	overflow: hidden;
+
+	&--wrapper {
+		height: inherit;
+		overflow-y: auto;
+		will-change: transform;
+	}
+}
+
+//.content {
+//
+//}

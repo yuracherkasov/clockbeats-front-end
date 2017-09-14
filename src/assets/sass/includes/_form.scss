@@ -1,0 +1,60 @@
+.form {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.form-group {
+	display: flex;
+	flex-flow: column nowrap;
+	margin-bottom: rem(15px);
+
+	&__inline {
+		display: flex;
+		flex-flow: row nowrap;
+
+		@at-root {
+			.form-group {
+				margin-right: rem(15px);
+			}
+		}
+	}
+}
+
+.form-control {
+	@at-root {
+
+		input#{&},
+		select#{&},
+		textarea#{&} {
+			color: $color-gray-lighten;
+			border: none;
+			outline: none;
+			background-color: $color-gray-light;
+
+			position: relative;
+			min-height: 18px;
+			max-height: 100px;
+			line-height: $base-line-height;
+			padding: 8px 12px;
+
+
+			&::-webkit-input-placeholder {
+				color: $color-gray-lighten;
+			}
+			&:-moz-placeholder {
+				color: $color-gray-lighten;
+				opacity:  .4;
+			}
+			&::-moz-placeholder {
+				color: $color-gray-lighten;
+				opacity:  .4;
+			}
+			&:-ms-input-placeholder {
+				color: $color-gray-lighten;
+			}
+			&::-ms-input-placeholder {
+				color: $color-gray-light;
+			}
+		}
+	}
+}

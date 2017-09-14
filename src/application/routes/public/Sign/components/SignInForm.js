@@ -62,45 +62,42 @@ export default class SignInForm extends Component {
 
 		return (
 			<div className="sign-form">
-				<h3>Sign In</h3>
-				<form>
-					<div className="form-group">
-						<Input
-							type="email"
-							name="email"
-							value={email.value}
-							required
-							placeholder="Email"
-							inputClasses="form-control"
-							handler={this.inputHandler}
-						/>
-					</div>
-					<div className="form-group">
-						<Input
-							type="password"
-							name="password"
-							value={password.value}
-							required
-							placeholder="Password"
-							inputClasses="form-control"
-							handler={this.inputHandler}
-						/>
-					</div>
+				<h3 className="title">Sign In</h3>
+				<form className="form">
+					<Input
+						type="email"
+						name="email"
+						value={email.value}
+						required
+						placeholder="Email"
+						rootClasses="form-group mr-0"
+						inputClasses="form-control"
+						handler={this.inputHandler}
+					/>
+					<Input
+						type="password"
+						name="password"
+						value={password.value}
+						required
+						placeholder="Password"
+						rootClasses="form-group mr-0"
+						inputClasses="form-control"
+						handler={this.inputHandler}
+					/>
 
-					<div className="form-group">
+					<div className="">
 						<button
 							type="submit"
-							className="btn btn-primary btn-block"
+							className="btn btn-default btn-block"
 							onClick={this.submitHandler}
 							disabled={!canSubmit}
 						>
 							Sign In
 						</button>
-						<div className="text-center mt-3">
-							<Link to="/restore">Forgot password?</Link>
-						</div>
 
-						<div className="text-center text-muted mt-3">
+						<Link to="/restore">Forgot password?</Link>
+
+						<div className="has-text-centered">
 							By signing in, you agree to our <b><Link to="/terms" className="text-muted">Terms</Link></b> & <b><Link to="/terms" className="text-muted">Privacy Policy</Link></b>.
 						</div>
 					</div>

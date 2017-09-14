@@ -8,8 +8,13 @@
 			}
 		}],
 		"react",
-		"stage-2"
+		"stage-1"
 	],
+
+	"plugins": [
+		"emotion"
+	],
+
 	"env": {
 		"development": {
 			"plugins": [

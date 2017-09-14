@@ -1,0 +1,70 @@
+.avatar {
+	width: 100%;
+	height: auto;
+	display: inline-flex;
+	position: relative;
+	border-radius: 50%;
+
+	&.editable {
+		cursor: pointer;
+		position: relative;
+		text-align: center;
+
+		.picture {
+			&:after {
+				content: "Edit image";
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				color: $color-white;
+				line-height: $base-line-height;
+				background-color: rgba($color-dark, .4);
+				transition: all 0.2s ease-in-out;
+				will-change: transform;
+			}
+
+			&:hover {
+				&:after {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.picture {
+		position: relative;
+		overflow: hidden;
+		border-radius: 50%;
+		background-image: linear-gradient(135deg, $color-gray-lighten, $color-gray-light);
+	}
+
+	.indicator {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: rem(12px);
+		height: rem(12px);
+		box-shadow: 0 0 0 1px rgba($color-gray, .2);
+		border-radius: 50%;
+		background-color: $color-gray-lighten;
+
+		&.online {
+			background-color: $color-success;
+		}
+
+		&.offline {
+			background-color: $color-danger;
+		}
+	}
+}
+
+.opacity-transition {
+	opacity: .4;
+	transition: opacity .2s linear;
+}

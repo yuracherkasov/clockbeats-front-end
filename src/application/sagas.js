@@ -10,15 +10,19 @@ import usersSagas from './services/Users/aids/sagas';
 import notificationsSagas from './services/Notifications/aids/sagas';
 import contacts from './services/Contacts/aids/sagas';
 import chatSagas from './services/Chat/aids/sagas';
+import workspaceSagas from './services/Workspace/aids/sagas';
+import playerSagas from './components/Player/core/sagas';
 
 // TODO: create initialize saga flow which will subscribe when sign in and unsubscribe when sign out
 export default function* sagas() {
 	yield all([
 		...applicationSagas,
 		...browserMediaSagas,
+		...playerSagas,
 		...signSagas,
 		...selfSagas,
 		...notificationsSagas,
+		...workspaceSagas,
 		...contacts,
 		...chatSagas,
 		...usersSagas,

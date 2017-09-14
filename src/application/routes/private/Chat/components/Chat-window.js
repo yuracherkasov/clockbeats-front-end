@@ -6,16 +6,19 @@ import Message from './Message';
 import {createSelector} from 'reselect';
 
 import {onlineSelector} from '../selectors';
-import memoize from 'lodash/memoize';
-import head from 'lodash/head';
+
+import {
+	head,
+	uniqBy,
+	memoize,
+	property,
+} from 'lodash';
 
 class ChatWindowContainer extends Component {
 	constructor(props) {
 		super(props);
 		this.getMessage = memoize(message => this.renderMessage(message));
 	}
-
-
 
 	componentDidUpdate() {
 		this.wrapper.scrollTop = this.wrapper.scrollHeight;
@@ -43,12 +46,10 @@ class ChatWindowContainer extends Component {
 		const {messages} = this.props;
 
 		return (
-			<div className="chat-messages">
-				<div className="chat-messages-wrapper" ref={wrapper => this.wrapper = wrapper}>
-					{messages.map(message =>
-						this.getMessage(message))}
-				</div>
-			</div>
+			<ul className="chat--room-window--messages--list" ref={wrapper => this.wrapper = wrapper}>
+				{messages.map(message =>
+					this.getMessage(message))}
+			</ul>
 		);
 	}
 }
@@ -58,14 +59,36 @@ const selectIssuer = createSelector(
 	onlineSelector,
 	(state, props) => props.room.messages,
 	(self, users, messages) => {
-		return messages.map(message => {
-			const issuer = head(users.filter(user => user.id === message.issuer));
+		if (messages.length === 0) return messages;
+
+		if (messages.length === 1) {
+			const [message] = messages;
+			const [issuer] = users.filter(user => user.id === message.issuer);
+
+			return [{
+				...message,
+				issuer,
+				own: issuer.id === self,
+				repeated: false,
+			}];
+		}
+
+		const issuers = uniqBy(messages, property('issuer')).map(message => {
+			const [issuer] = users.filter(user => user.id === message.issuer);
+			return issuer;
+		});
+
+		return messages.map((message, index) => {
+			const [issuer] = issuers.filter(issuer => issuer.id === message.issuer);
+			const next = messages[index + 1];
 
 			return {
 				...message,
 				issuer,
 				own: issuer.id === self,
+				repeated: (next && next.issuer === message.issuer),
 			};
+
 		});
 	}
 );

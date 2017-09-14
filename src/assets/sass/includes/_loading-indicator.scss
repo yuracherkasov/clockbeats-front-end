@@ -1,16 +1,13 @@
-@keyframes loadingIndicator {
-	0%, 100% {
-		transform: scale(0);
-	}
-	75% {
-		transform: scale(1);
-	}
+@keyframes loading-indicator {
+	0%, 100% {transform: scale(0);}
+	75% {transform: scale(1);}
 }
 
 .loading-indicator {
 	position: relative;
-	width: 80px;
-	height: 80px;
+	width: rem(80px);
+	height: rem(80px);
+	margin: rem(50px) auto 0;
 
 	.circle {
 		position: absolute;
@@ -20,8 +17,8 @@
 		width: 100%;
 		height: 100%;
 		opacity: 0.4;
-		background-color: #cfae56; /*TODO: add to main color*/
-		animation: loadingIndicator 2.25s infinite ease-in-out;
+		animation: loading-indicator 2.25s infinite ease-in-out;
+		background-color: $color-brand;
 	}
 
 	.circle--2 {

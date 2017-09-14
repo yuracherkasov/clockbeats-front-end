@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
-import ReactDom from 'react-dom';
-
-class ModalContainer extends Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-
-		return <noscript />;
-	}
-}
-
-export default ModalContainer;
+// import React from 'react';
+// import ReactModal from 'react-modal';
+//
+// return function Modal({children}) {
+// 	return (
+// 		<ReactModal
+// 			isOpen={creating}
+// 			contentLabel="Create new workspace"
+// 			onRequestClose={this.handleCreating}
+// 			overlayClassName="modal-overlay"
+// 		></ReactModal>
+// 	)
+// };

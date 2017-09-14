@@ -1,0 +1,99 @@
+.main-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: rem($main-header-height);
+	z-index: 11;
+	box-shadow: 0 3px 1px -2px rgba($color-dark, 0.15);
+	background-color: $color-gray-dark;
+
+	&--wrapper {
+		display: flex;
+		align-items: stretch;
+		justify-content: center;
+		height: 100%;
+	}
+
+	&--public-menu,
+	&--logo,
+	&--toolbar {
+		flex: 1;
+		align-self: center;
+		justify-content: center;
+		padding: 15px 20px;
+	}
+
+
+	&--public-menu {
+		margin-left: 30px;
+
+		&--link {
+			display: inline-flex;
+			font-size: rem(14px);
+			font-weight: 600;
+			line-height: $base-line-height / $base-font-size;
+			text-transform: uppercase;
+
+			// TODO: setup normal line-height
+			padding-top: rem(3px);
+
+			&:not(:last-child) {
+				margin-right: 15px;
+			}
+		}
+	}
+
+	&--logo {
+		> a {
+			width: 200px;
+			margin: 0 auto;
+			display: block;
+		}
+	}
+
+	&--toolbar {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+
+		margin-right: 30px;
+
+		&--icon {
+			display: inline-flex;
+			align-items: center;
+			position: relative;
+
+			&:last-child {
+				margin-left: 30px;
+			}
+
+			.tag {
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				z-index: 1;
+			}
+		}
+	}
+}
+
+.tag {
+	width: 20px;
+	height: 20px;
+	color: $color-gray-lighten;
+	font-size: rem(11px);
+	line-height: $base-line-height / $base-font-size;
+	display: inline-flex;
+	align-items: baseline;
+	justify-content: center;
+	background-color: $color-dark;
+
+	// TODO: setup normal line-height
+	padding-top: rem(3px);
+
+
+	&.rounded {
+		border-radius: 50%;
+	}
+}

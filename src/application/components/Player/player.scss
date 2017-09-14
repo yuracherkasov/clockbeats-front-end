@@ -1,0 +1,89 @@
+@keyframes show-player {
+	0% {bottom: -80px;}
+	100% {bottom: -10px;}
+}
+
+$color-dark: #101010 !default;
+$color-gray-dark: #141414;
+$color-gray: #303030;
+$color-gray-light: #606060;
+$color-gray-lighten: #c8c8c8 !default;
+$color-white: #fff !default;
+
+.player {
+	&-audio {
+		display: block;
+		position: fixed;
+		left: 0;
+		bottom: -10px;
+		z-index: 1000;
+		transform: translateZ(0);
+		border-top: 1px solid rgba($color-dark, .2);
+		width: 100%;
+		height: 71px;
+		background: $color-gray-dark;
+
+		animation: show-player 300ms 1 ease-in-out;
+	}
+
+	&-timeline {
+		height: 5px;
+		background: $color-gray-dark;
+		cursor: pointer;
+		transition: height .3s ease-out .15s;
+
+		&:hover {
+			height: 10px;
+			transition: height .3s ease-in-out 0s;
+		}
+
+		.bar {
+			position: absolute;
+			height: inherit;
+			background: #cfae56;
+		}
+
+		.bar-animated {
+			transition: width 500ms;
+		}
+
+		.bar-buffered {
+			opacity: .3;
+		}
+	}
+
+	&-controls {
+		display: flex;
+		margin: 0 auto;
+		font-size: 16px;
+		align-items: center;
+		padding-top: 13px;
+
+		width: 1170px;
+
+		.btn-icon {
+			fill: $color-gray-light;
+			color: $color-gray-light;
+			outline: none;
+			transition: none;
+
+			&:focus,
+			&:active {
+				box-shadow: none;
+			}
+
+			&:active {
+				background: rgba(0, 0, 0, 0.15);
+			}
+
+			&:hover {
+				fill: $color-gray-light;
+				color: $color-gray-light;
+			}
+
+			.fa {
+				text-align: center;
+			}
+		}
+	}
+}

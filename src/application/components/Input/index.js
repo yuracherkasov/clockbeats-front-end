@@ -261,7 +261,7 @@ class InputValidation extends Component {
 		} = this.props;
 
 		return (
-			<div className={rootClasses}>
+			<div className={rootClasses} tabIndex="-1">
 				{label &&
 					<label htmlFor={`${name}_input`}>{label}</label>
 				}
@@ -276,6 +276,7 @@ class InputValidation extends Component {
 					onBlur={this._showErrors}
 					onChange={this._onChange}
 					className={inputClasses}
+					tabIndex="-1"
 				/>
 
 				{strict && this.hints()}

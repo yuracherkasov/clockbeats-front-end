@@ -1,0 +1,114 @@
+.workspace {
+	margin-top: 20px;
+	background-color: rgba(255,255,255, 1);
+
+	&-header {
+		padding: 20px 30px;
+		margin-bottom: 30px;
+		border-bottom: 1px solid #f3f3f3;
+	}
+
+	&-body {}
+
+	&-content {
+		padding: 0 30px;
+		border-right: 1px solid #f3f3f3;
+	}
+
+	&-list {}
+	&-item {}
+	&-detail {}
+
+	&-aside {
+		padding: 0 30px;
+	}
+}
+
+.info-workspace {
+	width: 33.3333%;
+
+	&:not(:last-child) {
+		border-right: 1px solid #f3f3f3;
+	}
+
+	h3 {
+		line-height: .9;
+		padding: 5px 0 3px;
+		margin: 0;
+		font-size: 12px;
+	}
+}
+
+.font-lg {
+	font-size: 1.4rem;
+}
+
+.aside-module {
+	margin-bottom: 30px;
+
+	&-row {
+		display: flex;
+		align-content: center;
+		justify-content: space-around;
+	}
+
+	&-header {
+		display: flex;
+		align-content: center;
+		justify-content: space-between;
+		border-bottom: 1px solid #f3f3f3;
+	}
+
+	&-title {
+		margin: 0;
+	}
+
+	&-options {}
+
+	&-content {
+		padding-top: 5px;
+	}
+}
+
+.user-badge {
+	&-avatar {}
+	&-content {}
+}
+
+.argument-badge {
+	display: flex;
+	padding: 5px 0;
+
+	&-content {
+		flex: 1;
+		min-width: 0;
+	}
+
+	&-title {
+		color: rgba(41, 43, 44, 0.7);
+	}
+
+	&-body {
+		width: 100%;
+		max-height: 150px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		word-break: normal;
+	}
+
+	&-meta {
+		display: flex;
+		align-content: center;
+		justify-content: flex-start;
+	}
+
+}
+
+.text-underline {
+	text-decoration: underline;
+}
+
+.workspace-item {
+	margin-bottom: 20px;
+}

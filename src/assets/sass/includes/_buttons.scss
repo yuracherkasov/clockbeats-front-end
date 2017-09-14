@@ -1,171 +1,91 @@
-// scss-lint:disable QualifyingElement
-
-//
-// Base styles
-//
-
 .btn {
-	display: inline-block;
-	font-weight: $btn-font-weight;
-	line-height: $btn-line-height;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	user-select: none;
-	border: $input-btn-border-width solid transparent;
+	@include button-base;
+	outline: none;
+	border: 0;
+	padding: 0;
+	transform: translate(0, 0);
+	background: transparent;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	cursor: pointer;
-	@include button-size($btn-padding-y, $btn-padding-x, $font-size-base, $btn-border-radius);
-	@include transition($btn-transition);
+	color: $color-gray-lighten;
+	font-weight: 600;
+	text-transform: uppercase;
 
-	// Share hover and focus styles
-	@include hover-focus {
-		text-decoration: none;
-	}
 	&:focus,
-	&.focus {
-		outline: 0;
-		box-shadow: $btn-focus-box-shadow;
-	}
-
-	// Disabled comes first so active can properly restyle
-	&.disabled,
-	&:disabled {
-		cursor: $cursor-disabled;
-		opacity: .65;
-		@include box-shadow(none);
-	}
-
-	&:active,
-	&.active {
-		background-image: none;
-		@include box-shadow($btn-focus-box-shadow, $btn-active-box-shadow);
-	}
-}
-
-// Future-proof disabling of clicks on `<a>` elements
-a.btn.disabled,
-fieldset[disabled] a.btn {
-	pointer-events: none;
-}
-
-
-//
-// Alternate buttons
-//
-
-.btn-primary {
-	@include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
-}
-.btn-secondary {
-	@include button-variant($btn-secondary-color, $btn-secondary-bg, $btn-secondary-border);
-}
-.btn-info {
-	@include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
-}
-.btn-success {
-	@include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
-}
-.btn-warning {
-	@include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
-}
-.btn-danger {
-	@include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
-}
-
-// Remove all backgrounds
-.btn-outline-primary {
-	@include button-outline-variant($btn-primary-bg);
-}
-.btn-outline-secondary {
-	@include button-outline-variant($btn-secondary-border);
-}
-.btn-outline-info {
-	@include button-outline-variant($btn-info-bg);
-}
-.btn-outline-success {
-	@include button-outline-variant($btn-success-bg);
-}
-.btn-outline-warning {
-	@include button-outline-variant($btn-warning-bg);
-}
-.btn-outline-danger {
-	@include button-outline-variant($btn-danger-bg);
-}
-
-
-//
-// Link buttons
-//
-
-// Make a button look and behave like a link
-.btn-link {
-	font-weight: $font-weight-normal;
-	color: $link-color;
-	border-radius: 0;
-
-	&,
-	&:active,
-	&.active,
-	&:disabled {
-		background-color: transparent;
-		@include box-shadow(none);
-	}
-	&,
-	&:focus,
+	&:hover,
 	&:active {
-		border-color: transparent;
+		color: $color-gray-lighten;
 	}
-	@include hover {
-		border-color: transparent;
-	}
-	@include hover-focus {
-		color: $link-hover-color;
-		text-decoration: $link-hover-decoration;
-		background-color: transparent;
-	}
-	&:disabled {
-		color: $btn-link-disabled-color;
 
-		@include hover-focus {
-			text-decoration: none;
+	&[disabled] {
+		color: rgba($color-gray-light, .7);
+		cursor: not-allowed;
+		background-color: rgba($color-gray-lighten, .1);
+	}
+
+	&-primary,
+	&-default {
+		padding: 8px 12px;
+	}
+
+	&-block {
+		width: 100%;
+		display: block;
+	}
+
+	&-primary {
+		background-color: $color-gray-light;
+
+		&:hover {
+			background-color: darken($color-gray-light, 5%);
+		}
+
+		&:active {
+			background-color: darken($color-gray-light, 10%);
 		}
 	}
-}
 
+	&-default {
+		background-color: transparent;
 
-//
-// Button Sizes
-//
+		&:hover {
+			background-color: rgba($color-gray-lighten, .1);
+		}
 
-.btn-lg {
-	// line-height: ensure even-numbered height of button next to large input
-	@include button-size($btn-padding-y-lg, $btn-padding-x-lg, $font-size-lg, $btn-border-radius-lg);
-}
-.btn-sm {
-	// line-height: ensure proper height of button next to small input
-	@include button-size($btn-padding-y-sm, $btn-padding-x-sm, $font-size-sm, $btn-border-radius-sm);
-}
+		&:active {
+			background-color: rgba($color-gray-light, .1);
+		}
+	}
 
+	// TODO: find kind solution
+	.icon {
+		align-self: baseline;
+	}
 
-//
-// Block button
-//
+	&-icon {
+		width: 40px;
+		height: 40px;
+		padding: 8px;
 
-.btn-block {
-	display: block;
-	width: 100%;
-}
+		border: 0;
+		border-radius: 50%;
+		color: $color-gray-light;
 
-// Vertically space out multiple block buttons
-.btn-block + .btn-block {
-	margin-top: $btn-block-spacing-y;
-}
+		// TODO: find kind solution
+		.icon {
+			align-self: center;
+		}
 
-// Specificity overrides
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-	&.btn-block {
-		width: 100%;
+		&:hover,
+		&:active,
+		&:focus {
+			color: rgba($color-gray-light, .8);
+		}
+
+		&:active {
+			background-color: rgba($color-gray-light, .1);
+		}
 	}
 }

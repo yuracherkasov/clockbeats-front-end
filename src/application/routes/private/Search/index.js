@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import {createSelector} from 'reselect';
 import head from 'lodash/head';
 
+import Avatar from '../../../components/Avatar';
+
 import {
 	usersFollowRequestAction,
 	usersUnfollowRequestAction,
@@ -15,82 +17,24 @@ class SearchScene extends Component {
 		super(props);
 	}
 
-	state = {
-		search: '',
-	};
-
 	render() {
-		const {search} = this.state;
 		const {users, follow, unfollow} = this.props;
 
 		return (
-			<div>
-				<div className="pt-3">
-					<div className="container">
-						<div className="wide-search panel">
-							<div className="form-group">
-								<input
-									onChange={event => {
-										this.setState({search: event.target.value});
-									}}
-									value={search}
-									type="text"
-									className="form-control form-control-lg"
-									placeholder="Search Contacts"
-								/>
-							</div>
+			<ul className="workspace--list" style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-between'}}>
+				{users.map(user => (
+					<li key={user.id} className="workspace--list--article m-2" style={{display: 'inline-flex'}}>
+						<div className="article article-list mb-0" style={{flexFlow: 'row nowrap', alignItems: 'center', justifyContent: 'space-between', minWidth: 320}}>
+							<Avatar size={75} className="mr-2" />
+							<h3 className="my-1">{user.username}</h3>
+							{user.friends
+								? <button className="btn btn-default btn-block ml-2" style={{flex: 1}} onClick={() => unfollow(user.id)}>Unfollow</button>
+								: <button className="btn btn-primary btn-block ml-2" style={{flex: 1}} onClick={() => follow(user.id)}>Follow</button>
+							}
 						</div>
-					</div>
-				</div>
-
-				<div className="contacts panel">
-					<div className="container">
-						<div className="contacts-wrapper">
-							<ul className="contacts-list">
-								{users.filter(user => user.username.match(search)).map(user => {
-									return (
-										<li key={user.id} className="item">
-
-											<div className="d-flex flex-row align-items-center justify-content-around macro macro-profile">
-												<figure className="w-25 mr-3 mb-0 macro-avatar">
-													<img src="https://semantic-ui.com/images/wireframe/square-image.png" alt="Avatar" />
-												</figure>
-												<div className="w-50">
-													<Link className="h1 m-0 macro-username" to={`/${user.username}`} >
-														<span className="mr-1">{user.name}</span>
-														{user.online
-															? <small className="text-success font-weight-normal">online</small>
-															: <small className="text-muted font-weight-normal">offline</small>
-														}
-													</Link>
-													<p className="m-0 macro-description">{user.summary}</p>
-												</div>
-												<div className="w-25 ml-5">
-													{!user.friends && (
-														<span className="ml-2">
-															<button type="button" className="btn btn-primary btn-sm" onClick={() => follow(user.id)}>Follow</button>
-														</span>
-													)}
-
-													{user.friends && (
-														<span className="ml-2">
-															<button type="button" className="btn btn-warning btn-sm" onClick={() => unfollow(user.id)}>Unfollow</button>
-														</span>
-													)}
-
-													<span className="ml-2">
-														<button type="button" className="btn btn-secondary btn-sm">Add to workspace</button>
-													</span>
-												</div>
-											</div>
-										</li>
-									);
-								})}
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+					</li>
+				))}
+			</ul>
 		);
 	}
 }

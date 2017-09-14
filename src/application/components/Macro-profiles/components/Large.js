@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 
+import Avatar from '../../Avatar';
+
 export default class LargeMacroProfile extends PureComponent {
 	render() {
 		const {user, online} = this.props;
@@ -8,9 +10,13 @@ export default class LargeMacroProfile extends PureComponent {
 		return (
 			<div className="macro macro-profile">
 				<div className="d-flex flex-row">
-					<figure className="macro-avatar editable">
-						<img src={user.picture || 'https://semantic-ui.com/images/wireframe/square-image.png'} alt={user.username} />
-					</figure>
+					<Avatar
+						size={75}
+						online={online}
+						editable
+						username={user.username}
+						picture={user.picture}
+					/>
 				</div>
 				<div className="d-flex flex-row align-items-center justify-content-between">
 					<Link to={`/${user.username}`} className="macro-username" >{user.name || user.username}</Link>

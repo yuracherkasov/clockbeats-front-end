@@ -10,6 +10,8 @@ import notifications from './services/Notifications/aids/reducer';
 import contacts from './services/Contacts/aids/reducer';
 import chats from './services/Chat/aids/reducer';
 import online from './services/Socket/aids/user/reducer';
+import workspaces from './services/Workspace/aids/reducer';
+import {player, playerTimes} from './components/Player/core/reducer';
 
 export default combineReducers({
 	app,
@@ -22,4 +24,7 @@ export default combineReducers({
 	notifications,
 	contacts,
 	chats,
+	workspaces,
+	player,
+	playerTimes,
 });
