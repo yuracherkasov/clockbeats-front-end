@@ -79,9 +79,10 @@
 }
 
 .tag {
-	width: 20px;
-	height: 20px;
-	color: $color-gray-lighten;
+	color: rgba($color-brand, .8);
+
+
+	//color: $color-gray-lighten;
 	font-size: rem(11px);
 	line-height: $base-line-height / $base-font-size;
 	display: inline-flex;
@@ -90,10 +91,31 @@
 	background-color: $color-dark;
 
 	// TODO: setup normal line-height
-	padding-top: rem(3px);
 
+	&:hover {
+		color: rgba($color-brand, 1);
+	}
+
+	&-counter {
+		min-width: 20px;
+		height: 20px;
+		padding-top: rem(3.5px);
+	}
+
+	&-text {
+		cursor: pointer;
+		margin-right: rem(5px);
+		margin-bottom: rem(5px);
+		padding: rem(4px) rem(7px) rem(3px);
+	}
 
 	&.rounded {
-		border-radius: 50%;
+		border-radius: rem(80px);
 	}
+
+}
+
+.tags-list {
+	display: flex;
+	flex-flow: row wrap;
 }

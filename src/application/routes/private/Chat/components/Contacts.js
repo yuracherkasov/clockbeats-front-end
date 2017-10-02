@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {roomsSelector} from '../selectors';
+import {roomsSelector, unreadSelector} from '../selectors';
 
 import Avatar from '../../../../components/Avatar';
 
@@ -25,6 +25,7 @@ class ContactsContainer extends Component {
 			id,
 			modified_at,
 			participants: [participant],
+			unread,
 		} = room;
 		const {body} = last(room.messages) ? last(room.messages) : {};
 		const isToday = moment().diff(modified_at, 'days') === 0;
@@ -43,11 +44,21 @@ class ContactsContainer extends Component {
 						/>
 					</div>
 					<div className="chat--contact--content">
-						<h5 className="chat--contact--content__username">
-							{participant.name}
-						</h5>
-						<time className="chat--contact--content__time">{date}</time>
-						<p className="chat--contact--content__chat-message">{body}</p>
+						<h5 className="chat--contact--content__username">{participant.name}</h5>
+						<div className="chat--contact--content__chat-message">
+							<p>{body}</p>
+						</div>
+					</div>
+
+					<div className="chat--contact--meta">
+						<time className="chat--contact--meta__time">{date}</time>
+						<div className="chat--contact--meta__unread">
+							{!!unread && (
+								<span className="tag tag-counter rounded">
+									{unread}
+								</span>
+							)}
+						</div>
 					</div>
 				</NavLink>
 			</li>

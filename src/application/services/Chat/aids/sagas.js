@@ -22,7 +22,12 @@ import {
 	chatRequestFailedAction,
 	chatSendMessageRequestSucceededAction,
 	chatSendMessageRequestFailedAction,
-	chatMessageReceivedRequestAction, chatJoin, chatLeave,
+	chatMessageReceivedRequestAction,
+	chatJoin,
+	chatLeave,
+	chatPristineMessagesRequestSucceededAction,
+	chatPristineMessagesRequestFailedAction,
+	chatReadMessageRequestAction,
 } from './actions';
 
 import {AUTH} from '../../Auth/aids/actions';
@@ -130,6 +135,28 @@ function* receiveMessage() {
 	}
 }
 
+function* pristineMessages() {
+	const channel = yield actionChannel(CHAT.PRISTINE_MESSAGES_REQUESTED);
+	const actions = {
+		resolve: chatPristineMessagesRequestSucceededAction,
+		reject: chatPristineMessagesRequestFailedAction,
+	};
+
+	while (true) {
+		const {payload} = yield take(channel);
+		yield call(_call, Chat.pristineMessages.bind(null, payload.room, payload.messages), actions);
+	}
+}
+
+function* readMessages() {
+	const channel = yield actionChannel(SOCKET_USER.CHAT_MESSAGE_PRISTINE);
+
+	while (true) {
+		const {payload} = yield take(channel);
+		yield put(chatReadMessageRequestAction(payload));
+	}
+}
+
 function* read() {
 	const channel = yield actionChannel(USER.SELF_REQUEST_SUCCEEDED);
 
@@ -144,6 +171,8 @@ function* read() {
 			fork(specific),
 			fork(sendMessage),
 			fork(receiveMessage),
+			fork(pristineMessages),
+			fork(readMessages),
 		]);
 
 		yield put(chatListRequestAction());

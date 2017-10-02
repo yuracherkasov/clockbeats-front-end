@@ -40,6 +40,11 @@ img {
 	height: auto;
 }
 
+input,
+textarea {
+	font-family: $base-font-family;
+}
+
 ::selection {
 	background: rgba($color-brand, .2);
 }

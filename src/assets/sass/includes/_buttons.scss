@@ -1,5 +1,10 @@
+@mixin line-height() {
+	line-height: $base-line-height / $base-font-size;
+}
+
 .btn {
 	@include button-base;
+	@include line-height;
 	outline: none;
 	border: 0;
 	padding: 0;
@@ -27,7 +32,13 @@
 
 	&-primary,
 	&-default {
-		padding: 8px 12px;
+		padding: rem(8px) rem(12px);
+	}
+
+	&-sm {
+		padding: rem(5px) rem(8px);
+		padding-top: rem(8px);
+		font-size: rem(12px);
 	}
 
 	&-block {

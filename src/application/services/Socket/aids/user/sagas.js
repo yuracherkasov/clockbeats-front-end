@@ -19,6 +19,7 @@ import {
 	socketChatJoin,
 	socketChatLeave,
 	socketChatMessageAction,
+	socketChatMessagePristineAction,
 	socketFollowersUpdatedAction,
 } from './actions';
 import {SOCKET_CONNECTION} from '../connection/actions';
@@ -40,6 +41,8 @@ function subscription() {
 		Socket.socket.on('chat_leave', chat => emit(socketChatLeave(chat)));
 
 		Socket.socket.on('chat_message', message => emit(socketChatMessageAction(message)));
+
+		Socket.socket.on('chat_message_pristine', message => emit(socketChatMessagePristineAction(message)));
 
 		Socket.socket.on('followers_updated', contacts => emit(socketFollowersUpdatedAction(contacts)));
 

@@ -26,7 +26,7 @@ class ChatContainer extends Component {
 
 				<div className="chat--content">
 					<div className="chat--content--main">
-						<Route exact path={`${match.path}`} render={SelectChatNotice}/>
+						<Route exact path={`${match.path}`} render={SelectChatNotice} />
 						<Route path={`${match.path}/:room`} component={Room} />
 					</div>
 

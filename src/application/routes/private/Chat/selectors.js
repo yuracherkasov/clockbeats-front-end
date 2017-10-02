@@ -34,10 +34,24 @@ export const roomsSelector = createSelector(
 			return {
 				...chat,
 				participants: compact(mappedUsers),
+				unread: chat.messages.filter(message => message.issuer !== user.id && message.pristine).length,
 			};
 		});
 	}
 );
+
+// export const unreadSelector = createSelector(
+// 	state => state.user,
+// 	roomsSelector,
+// 	(self, chats) => {
+// 		return chats.map(chat => {
+// 			return {
+// 				room: chat.id,
+// 				messages: ,
+// 			};
+// 		});
+// 	}
+// );
 
 export const friends = createSelector(
 	state => state.user,

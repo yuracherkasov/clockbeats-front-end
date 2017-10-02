@@ -48,6 +48,12 @@ class Requests {
 		return Requests._call(`${this.host}/${url}`, options);
 	}
 
+	put(url = '', data) {
+		const options = this.options({method: 'PUT', body: JSON.stringify(data)});
+
+		return Requests._call(`${this.host}/${url}`, options);
+	}
+
 	patch(url = '', data) {
 		const options = this.options({method: 'PATCH', body: JSON.stringify(data)});
 

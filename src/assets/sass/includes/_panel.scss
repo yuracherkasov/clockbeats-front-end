@@ -1,0 +1,39 @@
+.panel {
+	display: flex;
+	flex-flow: column nowrap;
+
+	&-header {}
+
+	&-content {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: stretch;
+
+		&--main,
+		&--aside {
+			display: flex;
+			flex-flow: row nowrap;
+			margin: rem(20px) 0;
+		}
+
+		&--main {
+			flex: 2;
+		}
+
+		&--aside {
+			flex: 1;
+			border-left: 1px solid $border-color;
+			margin-left: rem(15px);
+			padding-left: rem(15px);
+
+			&-module {
+				flex: 1;
+				display: flex;
+				flex-flow: column nowrap;
+				margin-bottom: rem(15px);
+			}
+		}
+	}
+
+	&-footer {}
+}

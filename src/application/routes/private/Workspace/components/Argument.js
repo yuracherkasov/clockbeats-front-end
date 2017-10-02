@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
 import {pure} from 'recompose';
+import classNames from 'classnames';
 
 
 // TODO: add "show more/less" if body/media content more then 75px
@@ -20,12 +21,14 @@ function ArgumentAside({item}) {
 				<time className="argument--header__time">3 hours ago</time>
 			</div>
 			<div className="argument--content">
-				{body && (<p>{body}</p>)}
-				{media && (
-					<figure>
-						<img src={media.img} alt="Argument photo" />
-					</figure>
-				)}
+				<Truncate>
+					{body && (<p>{body}</p>)}
+					{media && (
+						<figure>
+							<img src={media.img} alt="Argument media" />
+						</figure>
+					)}
+				</Truncate>
 			</div>
 			<div className="argument--meta">
 				<div className="meta">
@@ -43,6 +46,55 @@ function ArgumentAside({item}) {
 			</div>
 		</div>
 	);
+}
+
+class Truncate extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	state = {
+		toggledOn: false,
+		truncate: false,
+	};
+
+	componentDidMount() {
+		const {scrollHeight} = this.node;
+
+		// TODO: should depends on css properties
+		// const style = window.getComputedStyle(this.node);
+		// remove bind 85
+		if (scrollHeight > 85) {
+			this.setState({truncate: true});
+		}
+	}
+
+	toggle = (event) => {
+		event.preventDefault();
+		this.setState(state => ({toggledOn: !state.toggledOn}));
+	};
+
+
+	render() {
+		const {truncate, toggledOn} = this.state;
+		const {children} = this.props;
+		const classes = classNames('truncate', {'truncate__collapsed': !toggledOn && truncate});
+
+		return (
+			<div>
+				<div ref={node => this.node = node} className={classes}>
+					{children}
+				</div>
+
+				{truncate && (
+					<button className="btn btn-default btn-sm mt-1" onClick={this.toggle}>
+						Show {toggledOn ? 'less' : 'more'}
+					</button>
+				)}
+
+			</div>
+		);
+	}
 }
 
 export const Argument = pure(ArgumentAside);

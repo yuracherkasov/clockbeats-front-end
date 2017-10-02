@@ -25,3 +25,7 @@ export function updateMessage(chatId, {id, text, persist = true, remove = false}
 	return Request.patch(`self/chats/${chatId}/messages/${id}`, {text, persist, remove});
 }
 
+export function pristineMessages(room, messages) {
+	return Request.patch(`self/chats/${room}/messages`, {messages});
+}
+

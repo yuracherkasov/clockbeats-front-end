@@ -20,6 +20,10 @@ class ChatWindowContainer extends Component {
 		this.getMessage = memoize(message => this.renderMessage(message));
 	}
 
+	state = {
+		selected: [],
+	};
+
 	componentDidUpdate() {
 		this.wrapper.scrollTop = this.wrapper.scrollHeight;
 	}
@@ -28,9 +32,21 @@ class ChatWindowContainer extends Component {
 		this.wrapper.scrollTop = this.wrapper.scrollHeight;
 	}
 
-	selected(message) {
-		console.log(message);
-	}
+	selected = (message) => {
+		// this.setState(state => {
+		// 	const exist = state.selected.find(item => item.id === message.id);
+		//
+		// 	if (!exist) {
+		// 		return {
+		// 			selected: [...state.selected, message],
+		// 		}
+		// 	} else {
+		// 		return {
+		// 			selected: state.selected.filter(item => item.id !== message.id),
+		// 		}
+		// 	}
+		// });
+	};
 
 	renderMessage(message) {
 		return (
@@ -56,7 +72,7 @@ class ChatWindowContainer extends Component {
 
 const selectIssuer = createSelector(
 	state => state.user.id,
-	onlineSelector,
+	state => state.users,
 	(state, props) => props.room.messages,
 	(self, users, messages) => {
 		if (messages.length === 0) return messages;

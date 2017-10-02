@@ -17,7 +17,7 @@
 
 	&--list,
 	&--aside {
-		padding: rem(20px);
+		//padding: rem(20px);
 	}
 
 	&--list {
@@ -128,8 +128,6 @@
 	}
 
 	&--content {
-		max-height: rem(75px);
-		overflow: hidden;
 	}
 
 	&--meta {

@@ -1,0 +1,163 @@
+.argues {
+	display: flex;
+	flex-flow: column nowrap;
+	flex-grow: 1;
+
+	&-list {
+		min-width: 0;
+
+		&--argue {
+			background-color: transparent;
+
+			&:not(:last-child) {
+				margin-bottom: rem(15px);
+			}
+		}
+	}
+}
+
+.date-separator {
+	padding: rem(20px);
+	text-align: center;
+
+	&__text {
+		padding: rem(5px);
+		background-color: rgba(48, 48, 48, 0.4);
+	}
+}
+
+
+.argue {
+	display: flex;
+	flex-flow: column nowrap;
+	padding: rem(10px) rem(20px);
+	position: relative;
+
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: $color-gray;
+		z-index: -1;
+	}
+
+	//&:hover {
+	//	//background-color: rgba($color-dark, .3);
+	//
+	//	.argue--header__actions {
+	//		opacity: 1;
+	//	}
+	//}
+
+	&-detail {}
+
+	&-general {}
+
+
+	&--header,
+	&--content,
+	&--footer,
+	&--addition {
+		display: flex;
+		flex-flow: row nowrap;
+
+		&:not(:last-child) {
+			margin-bottom: rem(10px);
+		}
+	}
+
+
+	&--header {
+
+		&__author {
+			display: flex;
+			flex-flow: row nowrap;
+			flex-shrink: 1;
+		}
+
+		&__time {
+			color: $color-gray-light;
+			font-size: rem(12px);
+		}
+
+		&__actions {
+			margin-left: auto;
+			margin-right: -15px;
+		}
+	}
+
+	&--content {
+		flex-flow: column nowrap;
+	}
+
+
+	&--footer {
+
+	}
+
+	&--addition {
+		// comments section
+	}
+}
+
+
+.comments-module {
+	&--form {
+		margin-bottom: rem(10px);
+	}
+
+	&--list {}
+}
+
+.comment-article {
+	display: flex;
+	flex-flow: column nowrap;
+	padding: rem(10px) rem(20px);
+
+
+
+	&--header,
+	&--content,
+	&--footer,
+	&--addition {
+		display: flex;
+		flex-flow: row nowrap;
+
+		&:not(:last-child) {
+			margin-bottom: rem(10px);
+		}
+	}
+
+
+	&--header {
+
+		&__author {
+			display: flex;
+			flex-flow: row nowrap;
+			flex-shrink: 1;
+		}
+
+		&__time {
+			color: $color-gray-light;
+			font-size: rem(12px);
+		}
+
+		&__actions {
+			margin-left: auto;
+			margin-right: -15px;
+		}
+	}
+
+	&--content {
+		flex-flow: column nowrap;
+	}
+
+
+	&--footer {
+
+	}
+}

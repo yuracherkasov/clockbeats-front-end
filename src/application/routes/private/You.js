@@ -15,6 +15,7 @@ import Settings from './Settings';
 import Workspace from './Workspace';
 import Drawer from '../../components/Drawer';
 import Loading from '../../components/Loading';
+import Anchor from '../../components/Anchor';
 
 import {ProfileCardLarge} from '../../components/Profile-card';
 
@@ -126,8 +127,8 @@ class YouScene extends Component {
 
 const mapStateToProps = state => ({
 	app: state.app,
-	token: state.auth.token,
 	user: state.user,
+	token: state.auth.token,
 	online: state.socket.online,
 });
 

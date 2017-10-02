@@ -62,6 +62,7 @@ export function Header({user, signOut, commonNotifications, chatNotifications, w
 }
 
 
+import {Dropdown} from '../Dropdown';
 
 
 function Toolbar({user, chat, workspace, common, signOut}) {
@@ -84,7 +85,7 @@ function Toolbar({user, chat, workspace, common, signOut}) {
 						<i className="fa fa-inbox fa-lg" aria-hidden="true" />
 					</span>
 
-					<span className="tag rounded">{chat}</span>
+					<span className="tag tag-counter rounded">{chat}</span>
 				</Link>
 			</li>
 
@@ -94,7 +95,7 @@ function Toolbar({user, chat, workspace, common, signOut}) {
 					<span className="icon">
 						<i className="fa fa-briefcase fa-lg" aria-hidden="true" />
 					</span>
-					<span className="tag rounded">{workspace}</span>
+					<span className="tag tag-counter rounded">{workspace}</span>
 				</Link>
 			</li>
 
@@ -104,60 +105,31 @@ function Toolbar({user, chat, workspace, common, signOut}) {
 					<span className="icon">
 						<i className="fa fa-bell fa-lg" aria-hidden="true" />
 					</span>
-					<span className="tag rounded">{common}</span>
+					<span className="tag tag-counter rounded">{common}</span>
 				</div>
 			</li>
 
 
 			{/* User */}
-			<UserMenu user={user} signOut={signOut}/>
+			<li className="main-header--toolbar--icon">
+				<span style={{marginRight: 10}} >Hi, {user.username}!</span>
+				<Dropdown>
+					<Link to="/you/profile" className="dropdown--menu__item">{user.username}</Link>
+					<Link to="/you" className="dropdown--menu__item">Dashboard</Link>
+					<Link to={`/${user.username}`} className="dropdown--menu__item">Public Profile</Link>
+					<Link to="/you/settings" className="dropdown--menu__item">Settings</Link>
+					<Link to="/sign-in" className="dropdown--menu__item" onClick={() => signOut()}>
+						<span>Sign Out</span>
+						<span className="icon ml-2">
+							<i className="fa fa-sign-out" aria-hidden="true" />
+						</span>
+					</Link>
+				</Dropdown>
+			</li>
+
 		</ul>
 	);
 }
-import {toggler} from '../Dropdown';
-
-const UserMenu = toggler(({user, signOut, toggledOn, toggle}) => (
-	<li className="main-header--toolbar--icon">
-		<span style={{marginRight: 10}} >Hi, {user.username}!</span>
-		<div className="btn btn-icon" title="User menu" onClick={toggle}>
-			<div className="hamburger hamburger-dotted">
-				<span />
-				<span />
-				<span />
-			</div>
-		</div>
-
-		{toggledOn && (
-			<div className="dropdown dropdown-menu">
-				<div className="dropdown--content">
-					<ul>
-						<li>
-							<Link to="/you/profile">{user.username}</Link>
-						</li>
-						<hr/>
-						<li>
-							<Link to="/you">Dashboard</Link>
-						</li>
-						<li>
-							<Link to={`/${user.username}`}>Public Profile</Link>
-						</li>
-						<li>
-							<Link to="/you/settings">Settings</Link>
-						</li>
-						<li>
-							<Link to="/sign-in" onClick={() => signOut()}>
-								<span>Sign Out</span>
-								<span className="icon ml-2">
-									<i className="fa fa-sign-out" aria-hidden="true" />
-								</span>
-							</Link>
-						</li>
-					</ul>
-				</div>
-			</div>
-		)}
-	</li>
-));
 
 Header.propTypes = {
 	user: PropTypes.object.isRequired,

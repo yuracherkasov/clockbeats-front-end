@@ -18,7 +18,7 @@ export default function* sagas() {
 	yield all([
 		...applicationSagas,
 		...browserMediaSagas,
-		...playerSagas,
+		// ...playerSagas,
 		...signSagas,
 		...selfSagas,
 		...notificationsSagas,

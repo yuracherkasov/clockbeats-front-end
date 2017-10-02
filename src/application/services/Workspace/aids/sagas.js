@@ -18,6 +18,14 @@ import {
 	workspaceCreateRequestSucceededAction,
 	workspaceCreateRequestFailedAction,
 } from './actions';
+
+import {
+	ARGUMENTS,
+	argumentCreateRequestedAction,
+	argumentCreateRequestSucceededAction,
+	argumentCreateRequestFailedAction,
+} from './actions';
+
 import {AUTH} from '../../Auth/aids/actions';
 
 function* _call(fn, {resolve, reject}) {
@@ -64,6 +72,23 @@ function* create() {
 	}
 }
 
+function* createArgument() {
+	const channel = yield actionChannel(ARGUMENTS.CREATE_REQUESTED);
+
+	while (true) {
+		const {payload: {workspace, issuer, body, media}} = yield take(channel);
+
+		console.log();
+
+		const actions = {
+			resolve: argumentCreateRequestSucceededAction,
+			reject: argumentCreateRequestFailedAction,
+		};
+
+		yield call(_call, Workspace.createArgument.bind(null, workspace, {issuer, body, media}), actions);
+	}
+}
+
 function* workspaceFlow() {
 	const connect = yield actionChannel([
 		AUTH.SIGN_IN_SUCCEEDED,
@@ -77,6 +102,7 @@ function* workspaceFlow() {
 		const tasks = yield all([
 			fork(list),
 			fork(create),
+			fork(createArgument),
 		]);
 
 		yield put(workspaceListRequestAction());

@@ -22,6 +22,7 @@ body,
 	position: relative;
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
 }
 
 .clockbeats {
@@ -61,6 +62,18 @@ body,
 	display: flex;
 	flex-flow: row nowrap;
 	align-items: baseline;
+
+	&.reactive {
+		cursor: pointer;
+
+		&:hover {
+			color: rgba($color-brand, .6);
+		}
+	}
+
+	&.reacted {
+		color: rgba($color-brand, .8);
+	}
 
 	&--item {
 		&:not(:last-child) {
@@ -150,5 +163,62 @@ body,
 			outline: none;
 			padding: 20px;
 		}
+	}
+}
+
+.truncate {
+	height: auto;
+	position: relative;
+
+	&__collapsed {
+		overflow: hidden;
+		max-height: rem(85px);
+
+		&:after {
+			content: ' ';
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			height: rem(15px);
+			width: 100%;
+			background: linear-gradient(rgba($color-dark, 0), $color-dark);
+		}
+	}
+
+	&__open {
+		height: auto;
+		max-height: 100%;
+	}
+
+	figure {
+		min-height: rem(90px);
+	}
+}
+
+.anchor {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	will-change: transform;
+
+	.slide {
+		transform: translateY(100%);
+		transition: all 130ms ease-out;
+
+		&-up {
+			transform: translateY(rem(-61px));
+		}
+	}
+}
+
+
+.empty-list {
+	margin: auto;
+	text-align: center;
+
+	&--message {
+		display: inline-block;
+		padding: rem(3px) rem(7px);
+		background-color: rgba($color-gray, .4);
 	}
 }

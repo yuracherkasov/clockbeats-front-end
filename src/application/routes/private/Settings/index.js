@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import Uploader from '../../../components/Uploader';
 import Waveform from '../../../components/Player/components/Waveform';
 
+import Modal from '../../../components/Modal';
+
+// import {Mention} from '../../../components/Editor';
+
 function extractBuffer(buffer) {
 	buffer = buffer.getChannelData(0);
 	const bar = 1;
@@ -98,15 +102,33 @@ function peaks(buffer) {
 	};
 }
 
+function Button({toggle}) {
+	return (
+		<button className="btn btn-default" onClick={toggle}>Modal</button>
+	);
+}
 
-function spectrum() {}
+function ModalBody({hide}) {
 
+	const OnSave = (event) => {
+		event.preventDefault();
+
+		console.log('Save!');
+	};
+	return (
+		<div>
+			<h1 style={{color: 'white'}}>Hello, world!</h1>
+			<button className="btn btn-primary" onClick={OnSave}>Save</button>
+			<button className="btn btn-primary" onClick={hide}>Close</button>
+		</div>
+	)
+}
 
 export default class SettingsScene extends Component {
 	constructor(props) {
 		super(props);
 
-		this.audioContext = new AudioContext();
+		// this.audioContext = new AudioContext();
 	}
 
 	state = {
@@ -147,15 +169,15 @@ export default class SettingsScene extends Component {
 		reader.readAsArrayBuffer(file);
 	};
 
-
-
 	render() {
-		const {samples} = this.state;
-
-		console.log(samples);
 
 		return (
 			<div className="container">
+
+				{/*<Modal knob={<Button />}>*/}
+					{/*<ModalBody />*/}
+				{/*</Modal>*/}
+
 				{/*<Uploader*/}
 					{/*onUploaded={this.fileHandler}*/}
 				{/*/>*/}

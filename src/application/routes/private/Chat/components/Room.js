@@ -9,7 +9,10 @@ import {createSelector} from 'reselect';
 import {roomsSelector} from '../selectors';
 import head from 'lodash/head';
 
-import {chatSendMessageRequestAction} from '../../../../services/Chat/aids/actions';
+import {
+	chatSendMessageRequestAction,
+	chatPristineMessagesRequestedAction,
+} from '../../../../services/Chat/aids/actions';
 
 class ChatWindowContainer extends Component {
 	constructor(props) {
@@ -20,6 +23,25 @@ class ChatWindowContainer extends Component {
 		loading: false,
 		message: '',
 	};
+
+	componentDidMount() {
+		this.pristine();
+	}
+
+	componentDidUpdate() {
+		this.pristine();
+	}
+
+	pristine() {
+		const {room, user, pristineMessages} = this.props;
+		const messages = room.messages
+			.filter(message => message.pristine && message.issuer !== user.id)
+			.map(message => message.id);
+
+		if (room.unread) {
+			return pristineMessages(room.id, messages);
+		}
+	}
 
 	sendHandler = event => {
 		const enter = event.keyCode === 13;
@@ -105,6 +127,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = dispatch => ({
 	sendMessage: ({room, issuer, body}) => dispatch(chatSendMessageRequestAction({room, issuer, body})),
+	pristineMessages: (room, messages) => dispatch(chatPristineMessagesRequestedAction({room, messages})),
 
 	// editMessage: (roomId, messageId, message) => dispatch(() => {}),
 	// removeMessage: (roomId, messageId) => dispatch(() => {}),

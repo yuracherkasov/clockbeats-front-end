@@ -9,6 +9,8 @@
 '~minx/src/utils',
 '~minx/src/elements';
 
+@import "~draft-js/dist/Draft.css";
+
 // Mixins
 @import
 "includes/mixins/container",
@@ -27,6 +29,7 @@
 
 // Components
 @import
+"includes/argues",
 "includes/avatar",
 "includes/drawer",
 "includes/dropdown",
@@ -34,6 +37,7 @@
 "includes/content",
 "includes/loading-indicator",
 "includes/main-header",
+"includes/panel",
 "includes/profile-card",
 "includes/public-profile",
 "includes/workspace";

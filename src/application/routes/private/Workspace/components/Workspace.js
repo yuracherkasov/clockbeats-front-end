@@ -2,10 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import Avatar from '../../../../components/Avatar';
+import {Dropdown} from '../../../../components/Dropdown';
 
 import {pure} from 'recompose';
 import moment from 'moment';
-import random from 'lodash/random';
 
 
 function WorkspaceList({item}) {
@@ -17,6 +17,7 @@ function WorkspaceList({item}) {
 		ends_at: end,
 		creator,
 		participants,
+		counts,
 	} = item;
 
 	const deadline = {
@@ -38,19 +39,22 @@ function WorkspaceList({item}) {
 
 				<div className="article--content">
 					<div className="avatars-list">
-						<Avatar size={35} online={creator.online} username={creator.username} picture={creator.picture} />
+						<Avatar
+							size={35}
+							online={creator.online}
+							username={creator.username}
+							picture={creator.picture}
+						/>
 
-						{participants.map(user => <Avatar key={user.id} size={35} online={user.online} username={user.username} picture={user.picture} />)}
-
-						{/*<div className="avatars-list--actions">*/}
-							{/*<div className="btn btn-icon" title="More">*/}
-								{/*<div className="hamburger hamburger-dotted">*/}
-									{/*<span />*/}
-									{/*<span />*/}
-									{/*<span />*/}
-								{/*</div>*/}
-							{/*</div>*/}
-						{/*</div>*/}
+						{participants.slice(0, 4).map(user =>
+							<Avatar
+								key={user.id}
+								size={35}
+								online={user.online}
+								username={user.username}
+								picture={user.picture}
+							/>
+						)}
 					</div>
 				</div>
 
@@ -68,7 +72,7 @@ function WorkspaceList({item}) {
 										<i className="fa fa-comments" />
 									</span>
 									<span className="meta--item">
-										{Math.floor(Math.random() * 100)}
+										{counts.argues}
 									</span>
 								</div>
 							</li>
@@ -78,7 +82,18 @@ function WorkspaceList({item}) {
 										<i className="fa fa-heart" />
 									</span>
 									<span className="meta--item">
-										{Math.floor(Math.random() * 100)}
+										{counts.likes}
+									</span>
+								</div>
+							</li>
+
+							<li className="icons-list__icon" title="Diamonds">
+								<div className="meta">
+									<span className="meta--item icon">
+										<i className="fa fa-diamond" />
+									</span>
+									<span className="meta--item">
+										{counts.votes}
 									</span>
 								</div>
 							</li>
@@ -97,13 +112,9 @@ function WorkspaceList({item}) {
 					</div>
 
 					<div className="article--aside__actions">
-						<div className="btn btn-icon" title="More">
-							<div className="hamburger hamburger-dotted">
-								<span />
-								<span />
-								<span />
-							</div>
-						</div>
+						<Dropdown>
+							<div>Archive</div>
+						</Dropdown>
 					</div>
 				</div>
 			</div>

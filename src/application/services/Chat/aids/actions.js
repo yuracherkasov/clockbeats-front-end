@@ -19,6 +19,12 @@ export const CHAT = {
 	SEND_MESSAGE_REQUEST_FAILED: 'CHAT_SEND_MESSAGE_REQUEST_FAILED',
 
 	MESSAGE_RECEIVED: 'CHAT_MESSAGE_RECEIVED',
+
+	READ_MESSAGES_RECEIVED: 'CHAT_READ_MESSAGES_RECEIVED',
+
+	PRISTINE_MESSAGES_REQUESTED: 'CHAT_PRISTINE_MESSAGES_REQUESTED',
+	PRISTINE_MESSAGES_REQUEST_SUCCEEDED: 'CHAT_PRISTINE_MESSAGES_SUCCEEDED',
+	PRISTINE_MESSAGES_REQUEST_FAILED: 'CHAT_PRISTINE_MESSAGES_FAILED',
 };
 
 /* SPECIFIC */
@@ -86,4 +92,21 @@ export function chatSendMessageRequestFailedAction(error) {
 /* RECEIVE MESSAGE */
 export function chatMessageReceivedRequestAction({room, message}) {
 	return {type: CHAT.MESSAGE_RECEIVED, payload: {room, message}};
+}
+
+/* PRISTINE MESSAGES */
+export function chatPristineMessagesRequestedAction({room, messages}) {
+	return {type: CHAT.PRISTINE_MESSAGES_REQUESTED, payload: {room, messages}};
+}
+
+export function chatPristineMessagesRequestSucceededAction({room, messages}) {
+	return {type: CHAT.PRISTINE_MESSAGES_REQUEST_SUCCEEDED, payload: {room, messages}};
+}
+
+export function chatPristineMessagesRequestFailedAction(error) {
+	return {type: CHAT.PRISTINE_MESSAGES_REQUEST_FAILED, payload: {error}};
+}
+
+export function chatReadMessageRequestAction({room, messages}) {
+	return {type: CHAT.READ_MESSAGES_RECEIVED, payload: {room, messages}};
 }

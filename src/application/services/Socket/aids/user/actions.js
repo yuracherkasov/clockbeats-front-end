@@ -8,6 +8,7 @@ export const SOCKET_USER = {
 	CHAT_JOIN: 'SOCKET_CHAT_JOIN',
 	CHAT_LEAVE: 'SOCKET_CHAT_LEAVE',
 	CHAT_MESSAGE: 'SOCKET_CHAT_MESSAGE',
+	CHAT_MESSAGE_PRISTINE: 'SOCKET_CHAT_MESSAGE_PRISTINE',
 	FOLLOWERS_UPDATED: 'SOCKET_FOLLOWERS_UPDATED',
 };
 
@@ -45,6 +46,10 @@ export function socketChatLeave(chat) {
 
 export function socketChatMessageAction({room, message}) {
 	return {type: SOCKET_USER.CHAT_MESSAGE, payload: {room, message}};
+}
+
+export function socketChatMessagePristineAction({room, messages}) {
+	return {type: SOCKET_USER.CHAT_MESSAGE_PRISTINE, payload: {room, messages}};
 }
 
 /* CONTACTS */

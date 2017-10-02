@@ -25,7 +25,7 @@ class SearchScene extends Component {
 				{users.map(user => (
 					<li key={user.id} className="workspace--list--article m-2" style={{display: 'inline-flex'}}>
 						<div className="article article-list mb-0" style={{flexFlow: 'row nowrap', alignItems: 'center', justifyContent: 'space-between', minWidth: 320}}>
-							<Avatar size={75} className="mr-2" />
+							<Avatar size={75} username={user.name} online={user.online} className="mr-2" />
 							<h3 className="my-1">{user.username}</h3>
 							{user.friends
 								? <button className="btn btn-default btn-block ml-2" style={{flex: 1}} onClick={() => unfollow(user.id)}>Unfollow</button>

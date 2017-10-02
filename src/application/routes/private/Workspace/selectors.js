@@ -24,3 +24,26 @@ export const workspacesSelector = createSelector(
 		}));
 	}
 );
+
+export const workspaceSelector = createSelector(
+	workspacesSelector,
+	(state, props) => props.match.params.workspace,
+	(workspaces, id) => {
+		return head(workspaces.filter(workspace => workspace.id === id));
+	}
+);
+
+// export const mapUserToArgument = createSelector(
+// 	workspaceSelector,
+// 	onlineSelector,
+// 	(workspace, users) => {
+// 		return workspace.arguments.map(argue => ({
+// 			...argue,
+// 			issuer: head(users.filter(user => user.id === argue.issuer)),
+// 			comments: argue.comments.map(comment => ({
+// 				...comment,
+// 				issuer: head(users.filter(user => user.id === comment.issuer))
+// 			})),
+// 		}))
+// 	}
+// );
