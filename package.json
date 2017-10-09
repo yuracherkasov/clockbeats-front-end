@@ -4,9 +4,10 @@
   "description": "Clockbeats is a portal of digital interaction, exchange and growth of ideas between people who live, breath and create music.",
   "scripts": {
     "test": "jest",
-    "server:dev": "NODE_ENV=development webpack-dev-server",
-    "start": "npm run server:dev",
-    "build": "NODE_ENV=production webpack"
+    "ssr": "node ssr.js",
+    "build": "NODE_ENV=production webpack",
+    "postinstall": "npm run build",
+    "start": "npm run ssr"
   },
   "author": "Serhii Yaitskii",
   "license": "WTFPL",
@@ -66,10 +67,14 @@
     "socket.io-client": "^2.0.3",
     "style-loader": "^0.18.2",
     "superagent": "^3.6.0",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.2",
     "validator": "^8.0.0",
     "webpack": "^3.1.0",
     "webpack-dev-server": "^2.5.1",
     "webpack-md5-hash": "0.0.5",
     "whatwg-fetch": "^2.0.3"
+  },
+  "devDependencies": {
+    "express": "^4.16.1"
   }
 }

@@ -1,10 +1,9 @@
 import IO from 'socket.io-client';
+import {ORIGIN} from '../../../../common.config';
 
-const HOST = process.env.NODE_ENV === 'production' ? 'http://188.166.28.121:81' : 'http://127.0.0.1:8095';
-
-// TODO: Create /config.js
+// TODO: Move to common.config.js
 const CONFIG = {
-	uri: HOST,
+	uri: ORIGIN,
 	options: {
 		forceNew: false,
 		autoConnect: false,

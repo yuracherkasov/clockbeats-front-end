@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -13,7 +14,6 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const OccurrenceOrderPlugin = require('webpack/lib/optimize/OccurrenceOrderPlugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 
 //=========================================================
 //  VARS
@@ -222,25 +222,25 @@ if (PRODUCTION) {
 
 	config.plugins.push(
 		new WebpackMd5Hash(),
-		new UglifyJsPlugin({
-			sourceMap: true,
-			comments: false,
-			beautify: false,
-			compress: {
-				unused: true,
-				dead_code: true,
-				screw_ie8: true,
-				warnings: false,
-			},
-			mangle: {
-				screw_ie8: true,
-				keep_fnames: true,
-			},
-			output: {
-				comments: false,
-				screw_ie8: true
-			},
-		})
+		// new UglifyJsPlugin({
+		// 	sourceMap: true,
+		// 	comments: false,
+		// 	beautify: false,
+		// 	compress: {
+		// 		unused: true,
+		// 		dead_code: true,
+		// 		screw_ie8: true,
+		// 		warnings: false,
+		// 	},
+		// 	mangle: {
+		// 		screw_ie8: true,
+		// 		keep_fnames: true,
+		// 	},
+		// 	output: {
+		// 		comments: false,
+		// 		screw_ie8: true
+		// 	},
+		// })
 	);
 }
 
