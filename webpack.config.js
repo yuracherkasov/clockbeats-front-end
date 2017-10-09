@@ -6,7 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
@@ -137,8 +137,10 @@ config.plugins = [
 		}
 	}),
 	new DefinePlugin({
-		'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-		'process.env.PUBLIC_URL': ORIGIN,
+		'process.env': {
+			NODE_ENV: JSON.stringify(NODE_ENV),
+			PUBLIC_URL: JSON.stringify(ORIGIN),
+		},
 	}),
 	new OccurrenceOrderPlugin(true),
 	new NamedModulesPlugin(),
@@ -233,24 +235,18 @@ if (DEVELOPMENT) {
 //  PRODUCTION
 //-------------------------------------
 if (PRODUCTION) {
-	config.devtool = 'hidden-source-map';
+	config.devtool = 'source-map';
 
 	config.plugins.push(
 		new WebpackMd5Hash(),
-		// new UglifyJsPlugin({
-		// 	compress: {
-		// 		warnings: false,
-		// 		// Disabled because of an issue with Uglify breaking seemingly valid code:
-		// 		// https://github.com/facebookincubator/create-react-app/issues/2376
-		// 		// Pending further investigation:
-		// 		// https://github.com/mishoo/UglifyJS2/issues/2011
-		// 		comparisons: false,
-		// 	},
-		// 	output: {
-		// 		comments: false,
-		// 	},
-		// 	sourceMap: true,
-		// }),
+		new UglifyJSPlugin({
+			uglifyOptions: {
+				beautify: false,
+				ecma: 6,
+				compress: true,
+				comments: false
+			}
+		}),
 
 
 		// Generate a service worker script that will precache, and keep up to date,
