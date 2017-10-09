@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
