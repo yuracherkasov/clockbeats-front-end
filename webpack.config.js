@@ -24,6 +24,7 @@ const PRODUCTION = NODE_ENV === 'production';
 
 const HOST = process.env.HOST || '127.0.0.1';
 const PORT = process.env.PORT || '3000';
+const {ORIGIN} = require('./common.config');
 
 //=========================================================
 //  LOADERS
@@ -136,6 +137,7 @@ config.plugins = [
 	}),
 	new DefinePlugin({
 		'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+		'process.env.PUBLIC_URL': ORIGIN,
 	}),
 	new OccurrenceOrderPlugin(true),
 	new NamedModulesPlugin(),
@@ -170,6 +172,18 @@ config.plugins = [
 		inject: 'body',
 		chunksSortMode: 'dependency',
 		template: './src/index.html',
+		minify: {
+			removeComments: true,
+			collapseWhitespace: true,
+			removeRedundantAttributes: true,
+			useShortDoctype: true,
+			removeEmptyAttributes: true,
+			removeStyleLinkTypeAttributes: true,
+			keepClosingSlash: true,
+			minifyJS: true,
+			minifyCSS: true,
+			minifyURLs: true,
+		},
 	})
 ];
 
@@ -179,8 +193,6 @@ config.plugins = [
 //-------------------------------------
 if (DEVELOPMENT) {
 	config.devtool = 'cheap-module-source-map';
-
-	console.log('DEVELOPMENT');
 
 	config.entry.main.unshift(
 		'react-hot-loader/patch',
@@ -224,25 +236,50 @@ if (PRODUCTION) {
 
 	config.plugins.push(
 		new WebpackMd5Hash(),
-		// new UglifyJsPlugin({
-		// 	sourceMap: true,
-		// 	comments: false,
-		// 	beautify: false,
-		// 	compress: {
-		// 		unused: true,
-		// 		dead_code: true,
-		// 		screw_ie8: true,
-		// 		warnings: false,
-		// 	},
-		// 	mangle: {
-		// 		screw_ie8: true,
-		// 		keep_fnames: true,
-		// 	},
-		// 	output: {
-		// 		comments: false,
-		// 		screw_ie8: true
-		// 	},
-		// })
+		new UglifyJsPlugin({
+			compress: {
+				warnings: false,
+				// Disabled because of an issue with Uglify breaking seemingly valid code:
+				// https://github.com/facebookincubator/create-react-app/issues/2376
+				// Pending further investigation:
+				// https://github.com/mishoo/UglifyJS2/issues/2011
+				comparisons: false,
+			},
+			output: {
+				comments: false,
+			},
+			sourceMap: true,
+		}),
+
+
+		// Generate a service worker script that will precache, and keep up to date,
+		// the HTML & assets that are part of the Webpack build.
+		new SWPrecacheWebpackPlugin({
+			// By default, a cache-busting query parameter is appended to requests
+			// used to populate the caches, to ensure the responses are fresh.
+			// If a URL is already hashed by Webpack, then there is no concern
+			// about it being stale, and the cache-busting can be skipped.
+			dontCacheBustUrlsMatching: /\.\w{8}\./,
+			filename: 'service-worker.js',
+			logger(message) {
+				if (message.indexOf('Total precache size is') === 0) {
+					// This message occurs for every build and is a bit too noisy.
+					return;
+				}
+				console.log(message);
+			},
+			minify: true,
+			// For unknown URLs, fallback to the index page
+			navigateFallback: ORIGIN + '/index.html',
+			// Ignores URLs starting from /__ (useful for Firebase):
+			// https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
+			navigateFallbackWhitelist: [/^(?!\/__).*/],
+			// Don't precache sourcemaps (they're large) and build asset manifest:
+			staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+			// Work around Windows path issue in SWPrecacheWebpackPlugin:
+			// https://github.com/facebookincubator/create-react-app/issues/2235
+			stripPrefix: path.join(__dirname, 'assets').replace(/\\/g, '/') + '/',
+		}),
 	);
 }
 
