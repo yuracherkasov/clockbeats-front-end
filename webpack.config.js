@@ -180,6 +180,8 @@ config.plugins = [
 if (DEVELOPMENT) {
 	config.devtool = 'cheap-module-source-map';
 
+	console.log('DEVELOPMENT');
+
 	config.entry.main.unshift(
 		'react-hot-loader/patch',
 		`webpack-dev-server/client?http://${HOST}:${PORT}`,
