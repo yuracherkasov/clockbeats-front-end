@@ -183,7 +183,7 @@ if (DEVELOPMENT) {
 	config.entry.main.unshift(
 		'react-hot-loader/patch',
 		`webpack-dev-server/client?http://${HOST}:${PORT}`,
-		'webpack/hot/only-dev-server',
+		'webpack/hot/only-dev-server'
 	);
 
 	config.plugins.push(
