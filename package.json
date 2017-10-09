@@ -9,6 +9,9 @@
     "postinstall": "npm run build",
     "start": "npm run ssr"
   },
+  "engines": {
+    "node": "8.4.0"
+  },
   "author": "Serhii Yaitskii",
   "license": "WTFPL",
   "dependencies": {
