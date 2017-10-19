@@ -1,0 +1,20 @@
+.block-module {
+	display: flex;
+
+	&__artwork {
+		width: rem(120px);
+		height: rem(120px);
+	}
+
+	&__content {}
+
+	&__header {}
+
+	&__title {}
+
+	&__description {}
+
+	&__aside {
+		margin-left: auto;
+	}
+}

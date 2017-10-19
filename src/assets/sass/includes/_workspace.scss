@@ -26,6 +26,7 @@
 
 		&--article {
 			background-color: $color-gray;
+			margin-bottom: rem(15px);
 		}
 	}
 
@@ -68,9 +69,6 @@
 		}
 	}
 }
-
-
-
 
 
 .info-workspace {
@@ -139,45 +137,100 @@
 }
 
 
+.article {
+	display: flex;
+	padding: rem(10px) rem(20px);
+	margin-bottom: rem(15px);
+	position: relative;
+	box-shadow:
+			0 1px 5px 0 rgba(0, 0, 0, 0.2),
+			0 2px 2px 0 rgba(0, 0, 0, 0.14),
+			0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: $color-gray;
+		z-index: -1;
+	}
+
+	&-hoverable {
+		&:hover {
+			background-color: rgba($color-dark, .3);
+		}
+	}
+}
+
+
 
 
 .article {
 	display: flex;
 	padding: rem(10px) rem(20px);
-	margin-bottom: rem(15px);
-	background-color: $color-gray;
+	position: relative;
+	box-shadow:
+			0 1px 5px 0 rgba(0, 0, 0, 0.2),
+			0 2px 2px 0 rgba(0, 0, 0, 0.14),
+			0px 3px 1px -2px rgba(0, 0, 0, 0.12);
 
-	box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
-
-	&:hover {
-		background-color: rgba($color-dark, .3);
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background-color: $color-gray;
+		z-index: -1;
 	}
 
-	&-list {
-		flex-flow: row nowrap;
+	&-hoverable {
+		&:hover {
+			background-color: rgba($color-dark, .3);
+		}
 	}
 
-	&-card {
-		flex-flow: column nowrap;
+	&-section {
+		display: flex;
+		flex: 1 1 0;
+		flex-direction: column;
+
+		&.x-0 {
+			flex: 0 0 0;
+		}
+
+		&.x-1 {
+			flex: 1 1 0;
+		}
+
+		&.x-2 {
+			flex: 2 1 0;
+		}
+
+		&.x-3 {
+			flex: 3 1 0;
+		}
 	}
 
-	&--header,
-	&--content,
-	&--aside {
-		flex: 4;
+	&__title,
+	&__subtitle {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		word-wrap: normal;
 	}
 
 
 	&--header {
 		min-width: 0;
 
-		&__title,
-		&__subtitle {
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			word-wrap: normal;
-		}
+
 
 		&__title {
 			font-size: rem(15px);

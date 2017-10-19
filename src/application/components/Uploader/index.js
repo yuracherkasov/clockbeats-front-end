@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {} from 'recompose';
-
 class Uploader extends Component {
 	static propTypes = {
-		onUploaded: PropTypes.func.isRequired,
+		size: PropTypes.number,
+		type: PropTypes.oneOf(['photo', 'video', 'audio']),
+		validate: PropTypes.bool,
+
+		onError: PropTypes.func,
+		onUploaded: PropTypes.func,
+		onProgress: PropTypes.func,
 	};
 
 	constructor(props) {
@@ -13,31 +17,58 @@ class Uploader extends Component {
 	}
 
 	state = {
-		valid: false,
-		media: undefined,
+		value: undefined,
 	};
 
-	componentWillUpdate(nextState, nextProps) {
-		const {onUploaded} = this.props;
+	get type() {
+		const {type} = this.props;
+
+		switch (type) {
+			case 'photo': return 'image/*';
+			case 'video': return 'video/*';
+			case 'audio': return 'audio/*';
+
+			default: return '';
+		}
 	}
 
 	// TODO: add ability upload multiple
-	fileHandler = ({target}) => {
-		const [file] = target.files;
-		// const reader = new FileReader(file);
+	fileHandler(files) {
+		if (files.length === 0) return;
 
-		console.log(file);
+		const [file] = files;
+		const {
+			onUploaded,
+		} = this.props;
 
-		this.setState({media: file});
+		// TODO: add validation
+
+		this.setState({value: file}, () => onUploaded(this.state));
 	};
 
-	validate() {}
+	inputHandler = (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+
+		this.fileHandler(event.target.files);
+		event.target.value = null;
+	};
 
 	render() {
 
 		return (
-			<div className="form-group">
-				<input type="file" placeholder="Chose a file" className="form-control" onChange={this.fileHandler} />
+			<div className="btn btn-primary btn-block">
+				<form ref={element => this.form = element}>
+					<label htmlFor="media-file">Upload file</label>
+					<input
+						id="media-file"
+						type="file"
+						name="file"
+						hidden
+						accept={this.type}
+						onChange={this.inputHandler}
+					/>
+				</form>
 			</div>
 		);
 	}

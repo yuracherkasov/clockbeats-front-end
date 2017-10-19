@@ -48,21 +48,17 @@ class Player extends Component {
 					</div>
 				</div>
 
-				<div className="player-controls">
-					<div className="container">
-						<div className="row">
-							<div className="col">
-								<Button className="btn-icon" onClick={() => console.log('prev')}>
-									<i className="fa fa-step-backward" aria-hidden="true" />
-								</Button>
-								<Button className="btn-icon" onClick={!isPlaying ? play : pause}>
-									<i className={classNames('fa', {'fa-play': !isPlaying, 'fa-pause': isPlaying})} aria-hidden="true" />
-								</Button>
-								<Button className="btn-icon" onClick={() => console.log('next')}>
-									<i className="fa fa-step-forward" aria-hidden="true" />
-								</Button>
-							</div>
-						</div>
+				<div className="player-content">
+					<div className="player-controls">
+						<Button className="btn-icon" onClick={() => console.log('prev')}>
+							<i className="fa fa-step-backward" aria-hidden="true" />
+						</Button>
+						<Button className="btn-icon" onClick={!isPlaying ? play : pause}>
+							<i className={classNames('fa', {'fa-play': !isPlaying, 'fa-pause': isPlaying})} aria-hidden="true" />
+						</Button>
+						<Button className="btn-icon" onClick={() => console.log('next')}>
+							<i className="fa fa-step-forward" aria-hidden="true" />
+						</Button>
 					</div>
 				</div>
 

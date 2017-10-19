@@ -1,39 +1,32 @@
 .panel {
-	display: flex;
-	flex-flow: column nowrap;
 
-	&-header {}
+	&-header {
+		width: 100%;
+	}
 
 	&-content {
 		display: flex;
-		flex-flow: row nowrap;
-		align-items: stretch;
 
 		&--main,
 		&--aside {
-			display: flex;
-			flex-flow: row nowrap;
 			margin: rem(20px) 0;
 		}
 
 		&--main {
-			flex: 2;
+			flex: 2 1 0;
 		}
 
 		&--aside {
-			flex: 1;
+			flex: 1 1 0;
+
 			border-left: 1px solid $border-color;
 			margin-left: rem(15px);
 			padding-left: rem(15px);
-
-			&-module {
-				flex: 1;
-				display: flex;
-				flex-flow: column nowrap;
-				margin-bottom: rem(15px);
-			}
 		}
 	}
 
-	&-footer {}
+	&-footer {
+		width: 100%;
+	}
 }
+

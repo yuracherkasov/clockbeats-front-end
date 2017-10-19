@@ -1,4 +1,5 @@
 import React, {
+	Children,
 	Component,
 	cloneElement,
 } from 'react';
@@ -29,51 +30,16 @@ DumbPortal.defaultProps = {
 	open: true,
 };
 
-const keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-function preventDefault(e) {
-	e = e || window.event;
-	if (e.preventDefault)
-		e.preventDefault();
-	e.returnValue = false;
-}
-
-function preventDefaultForScrollKeys(e) {
-	if (keys[e.keyCode]) {
-		preventDefault(e);
-		return false;
-	}
-}
-
-function disableScroll() {
-	if (window.addEventListener) {
-		window.addEventListener('DOMMouseScroll', preventDefault, false);
-	}
-
-	window.onwheel = preventDefault;
-	window.onmousewheel = document.onmousewheel = preventDefault;
-	window.ontouchmove = preventDefault;
-	document.onkeydown = preventDefaultForScrollKeys;
-}
-
-function enableScroll() {
-	if (window.removeEventListener) {
-		window.removeEventListener('DOMMouseScroll', preventDefault, false);
-	}
-
-	window.onmousewheel = document.onmousewheel = null;
-	window.onwheel = null;
-	window.ontouchmove = null;
-	document.onkeydown = null;
-}
-
 const KEYCODES = {
 	ESCAPE: 27,
 };
 
 export default class Portal extends Component {
 	static propTypes = {
-		children: PropTypes.node.isRequired,
+		children: PropTypes.oneOfType([
+			PropTypes.node,
+			PropTypes.arrayOf(PropTypes.node)
+		]).isRequired,
 		knob: PropTypes.node.isRequired,
 	};
 
@@ -95,16 +61,13 @@ export default class Portal extends Component {
 		const {active} = this.state;
 
 		if (!active) {
-			enableScroll();
 			this.disableHandlers();
 		} else {
-			disableScroll();
 			this.enableHandlers();
 		}
 	}
 
 	componentWillUnmount() {
-		enableScroll();
 		this.disableHandlers();
 	}
 
@@ -176,7 +139,7 @@ export default class Portal extends Component {
 			knobPosition: position,
 		};
 
-		return cloneElement(children, props);
+		return Children.map(children, (element) => cloneElement(element, props));
 	}
 
 	get trigger() {

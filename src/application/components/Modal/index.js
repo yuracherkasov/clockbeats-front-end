@@ -1,35 +1,57 @@
-import React from 'react';
+import React, {
+	Children,
+	Component,
+	cloneElement,
+} from 'react';
+
+import {memoize} from 'lodash';
+import PropTypes from 'prop-types';
 
 import Portal from '../Portal';
 
-function Overlay({children, hide}) {
-	const style = {
-		position: 'fixed',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: 'rgba(96, 96, 96, 0.6)',
-		zIndex: 25,
+const memoization = memoize((props, element) => cloneElement(element, props));
+
+class Overlay extends Component {
+	static propTypes = {
+		children: PropTypes.objectOf(Body).isRequired,
 	};
 
-	return (
-		<div style={style} onClick={hide}>
-			{children}
-		</div>
-	);
+	constructor(props) {
+		super(props);
+	}
+
+	handleClose = (event) => {
+		const {hide} = this.props;
+
+		if (this.overlay === event.target) {
+			hide();
+		}
+	};
+
+	get child() {
+		const {children, hide} = this.props;
+
+		return cloneElement(children, {hide});
+	}
+
+	render() {
+		return (
+			<div
+				ref={element => this.overlay = element}
+				className="modal__overlay"
+				onClick={this.handleClose}
+			>
+				{this.child}
+			</div>
+		);
+	}
 }
 
-function Body({children}) {
-	const style = {
-		display: 'flex',
-		backgroundColor: "#515151",
-		zIndex: 30,
-	};
 
+function Body({children, hide}) {
 	return (
-		<div style={style}>
-			{children}
+		<div className="modal__content">
+			{Children.map(children, element => memoization({hide}, element))}
 		</div>
 	);
 }

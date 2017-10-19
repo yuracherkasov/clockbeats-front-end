@@ -27,10 +27,10 @@ class Waveform extends React.Component {
 	}
 
 	removeCanvas() {
-		const canvas = this.containerEl.firstChild;
+		const canvas = this.container.firstChild;
 
 		if (canvas) {
-			return this.containerEl.removeChild(canvas);
+			return this.container.removeChild(canvas);
 		}
 	}
 
@@ -54,12 +54,12 @@ class Waveform extends React.Component {
 			context.fillRect(x, (35 + (v / 2)), 1, 70);
 		}
 
-		this.containerEl.appendChild(canvas);
+		this.container.appendChild(canvas);
 		this.props.onReady();
 	}
 
 	render() {
-		return <div className="waveform" ref={element => this.containerEl = element} />;
+		return <div className="waveform" ref={element => this.container = element} />;
 	}
 }
 

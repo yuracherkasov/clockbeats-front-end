@@ -27,11 +27,11 @@ export class AudioTimeline extends React.Component {
 
 	render() {
 		const {bufferedTime, percentBuffered, percentCompleted} = this.props.times;
+		const classes = classNames('bar bar-buffered', {'bar-animated': bufferedTime > 0});
 
 		return (
 			<div className="player-timeline" onClick={this.handleClick}>
-				<div className={classNames('bar bar-buffered', {'bar-animated': bufferedTime > 0})}
-				     style={{width: percentBuffered}} />
+				<div className={classes} style={{width: percentBuffered}} />
 				<div className="bar bar-completed" style={{width: percentCompleted}} />
 			</div>
 		);

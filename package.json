@@ -4,10 +4,9 @@
   "description": "Clockbeats is a portal of digital interaction, exchange and growth of ideas between people who live, breath and create music.",
   "scripts": {
     "test": "jest",
-    "ssr": "node ssr.js",
     "build": "NODE_ENV=production webpack",
     "postinstall": "npm run build",
-    "start": "npm run ssr"
+    "start": "NODE_ENV=development webpack-dev-server"
   },
   "engines": {
     "node": "8.4.0"

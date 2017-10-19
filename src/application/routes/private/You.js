@@ -9,6 +9,7 @@ import {
 
 import Chat from './Chat';
 import Contacts from './Contacts';
+import Cloudbeats from './Cloudbeats';
 import Profile from './Profile';
 import Search from './Search';
 import Settings from './Settings';
@@ -113,7 +114,7 @@ class YouScene extends Component {
 							<Route path={`${match.path}/explore`} component={Profile} />
 							<Route path={`${match.path}/search`} component={Search} />
 							<Route path={`${match.path}/chat`} component={Chat} />
-							<Route path={`${match.path}/cloudbeats`} component={Profile} />
+							<Route path={`${match.path}/cloudbeats`} component={Cloudbeats} />
 							<Route path={`${match.path}/workspace`} component={Workspace} />
 							<Route path={`${match.path}/settings`} component={Settings} />
 						</main>
