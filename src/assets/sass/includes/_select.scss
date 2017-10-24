@@ -1,0 +1,24 @@
+.select_custom{
+  display: inline-block;
+  position: relative;
+  i{
+    position: absolute;
+    height: 86%;
+    width: 40px;
+    top: 8%;
+    right: 2px;
+    margin: 0!important;
+    text-align: center;
+    pointer-events: none;
+    font-size: 20px;
+    &:after{
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      height: 100%;
+    }
+    &:before{
+      vertical-align: middle;
+    }
+  }
+}

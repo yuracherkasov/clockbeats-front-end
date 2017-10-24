@@ -1,0 +1,187 @@
+.settings{
+  &-wrapper{
+    padding: 20px 16px 20px;
+  }
+  &-list > li{
+    list-style: none;
+    border-bottom: 1px solid $border-color;
+    min-height: 60px;
+  }
+  &-head{
+    padding: 17px 15px;
+    background: $color-gray;
+    margin: 0px 0 5px;
+    position: sticky;
+    top: 0px;
+    h2{
+      color: $color-gray-lighten;
+      font-size: 20px;
+      i{
+        cursor: pointer;
+        margin-right: 3px;
+      }
+    }
+    a{
+      margin: 5px 5px 0 0;
+      text-transform: uppercase;
+    }
+  }
+  &-btns{
+    margin: 30px 0 30px;
+    div{
+      float: right;
+    }
+    button{
+      margin-left: 15px;
+      color: $color-white;
+      font-size: 12px;
+      padding: 3px 25px;
+      border-radius: 5px;
+      transition: all .1s ease-in-out;
+      &:hover{
+        color: $color-white;
+      }
+    }
+    .settings{
+      &-submit{
+        background: $border-brand-lighten;
+        &:hover{
+          background: $border-brand-light;
+        }
+      }
+      &-cancel{
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+      &-delete{
+        background: rgba($color-danger, .3);
+        float: right;
+        &:hover{
+          background: rgba($color-danger, .5);
+        }
+      }
+    }
+  }
+  &-problems{
+    padding: 15px 15px;
+    background: $color-gray;
+    margin: 20px 0 0;
+    span{
+      font-weight: bold;
+      margin-right: 6px;
+    }
+    a{
+      margin-left: 7px;
+    }
+  }
+}
+.setting{
+  &-caption{
+    float: left;
+    width: 15%;
+    min-width: 120px;
+    padding: 20px 20px;
+    text-align: right;
+    color: $color-gray-light;
+    white-space: nowrap;
+  }
+  &-description{
+    padding: 0 20px;
+    overflow: hidden;
+    .editable-text{
+      padding: 20px 0;
+      color: $color-gray-lighten;
+      font-size: 13px;
+    }
+    .editable-group{
+      padding: 13px 0;
+      i{
+        float: right;
+        margin-top: 10px;
+      }
+      &:nth-of-type(2){
+        padding-top: 0;
+      }
+      .select_custom i{
+        background: #101010;
+      }
+    }
+  }
+  &-control{
+    height: 32px;
+    border-color: #343434;
+    border: 1px solid $border-brand-lighten;
+    background: $color-dark;
+    padding: 7px 15px;
+    color: $color-gray-lighten;
+    border-radius: 2px;
+    outline: none;
+    float: left;
+    &:focus{
+      border: 1px solid $border-brand-light;
+    }
+  }
+  &-error{
+    color: rgba($color-danger, .5);
+    font-size: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 4% 0 3%;
+    min-height: 32px;
+  }
+}
+.setting-categories{
+  padding: 8px 0;
+  i{
+    float: right;
+    margin-top: 15px;
+  }
+}
+.editable-categories{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-right: 10%;
+}
+.editable-checkbox{
+  padding: 15px 10px;
+  width: 31%;
+  border: 1px solid $border-brand-lighten;
+  margin: 5px 1.6% 1% 0;
+  cursor: pointer;
+  &.active{
+    border: 1px solid $border-brand-light;
+    p{
+      color: $color-gray-lighten;
+    }
+  }
+  input{
+    display: none;
+    & + .active{
+      color: $border-brand-light;
+      display: none;
+    }
+    &:checked ~ .active{
+      display: block;
+    }
+    &:checked ~ .inactive{
+      display: none;
+    }
+  }
+  i{
+    float: left;
+    margin: 3px 6px 0 0;
+    font-size: 18px;
+    color: $border-brand-lighten;
+    width: 20px; 
+  }
+  p{
+    overflow: hidden;
+    color: $color-gray-light;
+  }
+  &:active{
+    border: 1px solid $border-brand-light;
+  }
+}

@@ -19,10 +19,9 @@ const Form = ({hide, name, onSubmit, onChange, children}) => {
 		<div>
 			<Input
 				type="text"
-				name="title"
+				name="title-1"
 				value={name}
 				required
-				validate={false}
 				placeholder="Title"
 				rootClasses="form-group mr-0"
 				inputClasses="form-control"
@@ -70,7 +69,9 @@ export default class Loader extends Component {
 		});
 	};
 
-	changeHandler = ({value, valid}) => {
+	changeHandler = ({name, value, valid}) => {
+
+		console.log({name, value, valid});
 		this.setState({name: {value, valid}});
 	};
 

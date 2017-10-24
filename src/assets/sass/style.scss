@@ -256,3 +256,9 @@ body,
 
 	&__image {}
 }
+
+.clearfix:after{
+	content: "";
+	display: table;
+	clear: both;
+}

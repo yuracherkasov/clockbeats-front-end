@@ -53,6 +53,7 @@ class InputValidation extends Component {
 	}
 
 	componentWillUpdate(nextProps, nextState) {
+
 		const {reset: nextReset} = nextProps;
 		const {handler, name, reset: prevReset} = this.props;
 		const {value: prevValue} = this.state;
@@ -122,7 +123,7 @@ class InputValidation extends Component {
 			switch (type) {
 				case 'tel':
 					// TODO: create telephone validation
-					validators.push(this._textValidate);
+					validators.push(this._telValidate);
 					break;
 
 				case 'text':
@@ -164,6 +165,14 @@ class InputValidation extends Component {
 			return `Must be no more than ${max} characters`;
 		}
 	};
+
+	_telValidate = (value) => {
+		const valid = /^[0-9-]+$/.test(value);
+
+		if (!valid && value) {
+			return 'Can contain only numbers and character -';
+		}
+	}
 
 	_textValidate = (value) => {
 		const valid = /^[a-zA-Z0-9_-]+$/.test(value);
@@ -254,6 +263,7 @@ class InputValidation extends Component {
 			name,
 			label,
 			strict,
+			icon,
 			placeholder,
 			disabled,
 			rootClasses,
@@ -262,6 +272,8 @@ class InputValidation extends Component {
 
 		return (
 			<div className={rootClasses}>
+				{icon && 
+				  <i className={icon} /> }
 				{label &&
 					<label htmlFor={`${name}_input`}>{label}</label>
 				}
