@@ -10,36 +10,41 @@ export default class SelectOpts extends Component {
     this.options = COUNTRIES.map(item => item.name);
   }
 
-  render() {
-    const props = this.props;
+  get field() {
+    const {
+      name,
+      edit,
+      value,
+      handler,
+    } = this.props;
 
-    const field = props.edit ?
-      (<Select
-        name={props.name}
-        value={props.value}
+    return edit
+    ?  (<Select
+        name={name}
+        value={value}
         rootClasses="editable-group"
         selectClasses="setting-control"
-        icon="fa fa-fw fa-pencil"
         errorClasses="setting-error"
-        handler={props.handler}
+        handler={handler}
         options={this.options}
-      />) :
-      (<div className="editable-text">{props.value}</div>)
-  
+    />)
+    : (<div className="editable-text">{value}</div>);
+  }
+
+  render() { 
     return (
       <div className="textedit-group">
-        <div className="setting-caption">{props.caption}</div>
+        <div className="setting-caption">{this.props.caption}</div>
         <div className="setting-description">
-          {field}
+          {this.field}
         </div>
       </div>
     );
   }
 }
-Select.propTypes = {
+SelectOpts.propTypes = {
   edit: PropTypes.bool,
   name: PropTypes.string,
-  rootClasses: PropTypes.string,
   value: PropTypes.string,
   caption: PropTypes.string,
   handler: PropTypes.func,

@@ -11,30 +11,18 @@ export default class Passwordeditor extends Component {
     };
   }
 
-  insertHandler = (data) => {
-    this.setState({
-      newPassword: data.value,
-    })
-  }
+  get field() {
+    const {
+      type,
+      name,
+      edit,
+      value,
+      required,
+      handler,
+    } = this.props;
 
-  repeatPasswordValidator = (repeatpass) => {
-    if (this.state.newPassword !== repeatpass) {
-			return 'Password does not match';
-		}
-  }
-
-  _textValidate = (value) => {
-		const valid = /^[a-zA-Z0-9_-]+$/.test(value);
-
-		if (!valid && value) {
-			return 'Can contain letters, numbers and characters _-';
-		}
-	};
-
-  render() {
-    const { type, name, value, handler, caption, edit } = this.props;
-    const field = edit ?
-      (<div className="passwds-group">
+    return edit
+      ? (<div className="passwds-group">
         <Input
           type={type}
           name={name}
@@ -44,8 +32,7 @@ export default class Passwordeditor extends Component {
           rootClasses="editable-group clearfix"
           inputClasses="setting-control"
           errorClasses="setting-error"
-          icon="fa fa-fw fa-pencil"
-          handler={(data) => this.insertHandler(data)}
+          handler={this.insertHandler}
         />
         <Input
           type={type}
@@ -59,14 +46,30 @@ export default class Passwordeditor extends Component {
           handler={handler}
           validate={this.repeatPasswordValidator}
         />
-        </div>
-        ) :
+      </div>)
+      :
       (<div className="editable-text">**********</div>)
+
+  }
+
+  insertHandler = ({ value }) => {
+    this.setState({
+      newPassword: value,
+    })
+  }
+
+  repeatPasswordValidator = (repeatpass) => {
+    if (this.state.newPassword !== repeatpass) {
+      return 'Password does not match';
+    }
+  }
+
+  render() {
     return (
       <div className="textedit-group">
-        <div className="setting-caption">{caption}</div>
+        <div className="setting-caption">{this.props.caption}</div>
         <div className="setting-description">
-          {field}
+          {this.field}
         </div>
       </div>
     );

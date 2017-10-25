@@ -56,3 +56,8 @@ $spacers: (
 				y: ($spacer-y * 3)
 		)
 ) !default;
+
+$large-device: 991px;
+$medium-device: 767px;
+$small-device: 575px;
+$extra-small-device: 480px;

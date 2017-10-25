@@ -8,26 +8,38 @@ export default class Texteditor extends Component {
     super(props);
   }
 
+  get field() {
+    const {
+      type,
+      name,
+      edit,
+      value,
+      required,
+      handler,
+    } = this.props;
+
+    return edit
+    ? (<Input
+      type={type}
+      name={name}
+      value={value}
+      required={required}
+      rootClasses="editable-group clearfix"
+      inputClasses="setting-control"
+      errorClasses="setting-error"
+      handler={handler}
+    />)
+    : (<div className="editable-text">{value}</div>);
+  }
+
   render() {
-    const props = this.props;
-    const field = props.edit ?
-      (<Input
-        type={props.type}
-        name={props.name}
-        value={props.value}
-        required={props.required}
-        rootClasses="editable-group clearfix"
-        inputClasses="setting-control"
-        icon="fa fa-fw fa-pencil"
-        errorClasses="setting-error"
-        handler={props.handler}
-      />) :
-      (<div className="editable-text">{props.value}</div>)
+    const {caption} = this.props;
+
     return (
       <div className="textedit-group">
-        <div className="setting-caption">{props.caption}</div>
+        <div className="setting-caption">{caption}</div>
         <div className="setting-description">
-          {field}
+          {this.field}
         </div>
       </div>
     );

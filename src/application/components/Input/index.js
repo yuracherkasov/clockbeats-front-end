@@ -21,7 +21,6 @@ class InputValidation extends Component {
 		const {value, range, type, strict} = this.props;
 
 		this.setState({
-			...this.state,
 			value,
 			validators: [...this._validatorHandler()],
 		});

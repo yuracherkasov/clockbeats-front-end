@@ -30,6 +30,7 @@
 		background-color: rgba($color-gray-lighten, .1);
 	}
 
+	&-danger,
 	&-primary,
 	&-default {
 		padding: rem(8px) rem(12px);
@@ -43,6 +44,19 @@
 	&-block {
 		width: 100%;
 		display: block;
+	}
+
+	&-danger {
+		color: $color-danger;
+
+		&:active,
+		&:focus,
+		&:hover {
+			color: $color-danger;
+		}
+		&:hover{
+			background-color: rgba($color-gray-lighten, .1);
+		}
 	}
 
 	&-primary {
