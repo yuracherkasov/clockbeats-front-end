@@ -114,11 +114,11 @@ function Toolbar({user, chat, workspace, common, signOut}) {
 			<li className="main-header--toolbar--icon">
 				<span style={{marginRight: 10}} >Hi, {user.username}!</span>
 				<Dropdown>
-					<Link to="/you/profile" className="dropdown--menu__item">{user.username}</Link>
-					<Link to="/you" className="dropdown--menu__item">Dashboard</Link>
-					<Link to={`/${user.username}`} className="dropdown--menu__item">Public Profile</Link>
-					<Link to="/you/settings" className="dropdown--menu__item">Settings</Link>
-					<Link to="/sign-in" className="dropdown--menu__item" onClick={() => signOut()}>
+					<Link to="/you/profile" className="hello" >{user.username}</Link>
+					<Link to="/you">Dashboard</Link>
+					<Link to={`/${user.username}`}>Public Profile</Link>
+					<Link to="/you/settings">Settings</Link>
+					<Link to="/sign-in" onClick={() => signOut()}>
 						<span>Sign Out</span>
 						<span className="icon ml-2">
 							<i className="fa fa-sign-out" aria-hidden="true" />

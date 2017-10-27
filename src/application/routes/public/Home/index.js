@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {createSelector} from 'reselect';
+import Carousel from './components/Carousel';
+import Main from './components/Main';
 
 class HomeScene extends Component {
 	constructor(props) {
@@ -11,10 +13,8 @@ class HomeScene extends Component {
 		const {user} = this.props;
 		return (
 			<div>
-				"Home" Scene Component
-				<br/>
-
-				{user && <p>Hi, {user.username}</p>}
+				<Carousel />
+				<Main />
 			</div>
 		);
 	}
